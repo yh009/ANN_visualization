@@ -1,6 +1,7 @@
 package csci205_proj_hw3;
 
-import csci205_proj_hw3.controller.ANNController;
+import csci205_proj_hw3.controller.FileCtrl;
+import csci205_proj_hw3.model.ANNModel;
 import csci205_proj_hw3.view.ANNView;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -47,13 +48,15 @@ import javafx.stage.Stage;
 public class ANNMain extends Application {
 
     private ANNView theView;
-    private ANNController theCtrl;
+    private FileCtrl theCtrl;
+    private ANNModel theModel;
 
     @Override
     public void init() throws Exception {
         super.init();
-        this.theView = new ANNView();
-        this.theCtrl = new ANNController();
+        this.theModel = new ANNModel();
+        this.theView = new ANNView(theModel);
+        this.theCtrl = new FileCtrl(theModel, theView);
     }
 
     @Override
