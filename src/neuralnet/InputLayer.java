@@ -12,6 +12,7 @@
  */
 package neuralnet;
 
+import java.io.Serializable;
 import neuralnet.data.UnlabeledInstance;
 
 /**
@@ -20,7 +21,7 @@ import neuralnet.data.UnlabeledInstance;
  *
  * @author brk009
  */
-public class InputLayer extends Layer {
+public class InputLayer extends Layer implements Serializable {
 
     public InputLayer(int numInputs) {
         super(numInputs);

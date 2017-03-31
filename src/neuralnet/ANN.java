@@ -13,6 +13,7 @@
 package neuralnet;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import neuralnet.data.LabeledInstance;
 import neuralnet.data.LabeledInstances;
@@ -26,7 +27,7 @@ import neuralnet.strategy.LogisticActivationStrategy;
  *
  * @author brk009
  */
-public class ANN {
+public class ANN implements Serializable {
 
     private int numInputs;
     private int numHidden;
@@ -69,8 +70,7 @@ public class ANN {
         this.layers[0] = new InputLayer(numInputs);
         if (numLayers == 2) {
             this.layers[1] = new Layer(numOutputs);
-        }
-        else {
+        } else {
             layers[1] = new Layer(numHidden);
             layers[2] = new Layer(numOutputs);
         }
@@ -113,7 +113,7 @@ public class ANN {
      * @throws NeuronException
      */
     public ArrayList<ArrayList<Double>> classifyInstances(
-      UnlabeledInstances data) {
+            UnlabeledInstances data) {
         ArrayList<ArrayList<Double>> resultList = new ArrayList<>();
         for (UnlabeledInstance inst : data) {
             resultList.add(classifyInstance(inst));
@@ -147,7 +147,7 @@ public class ANN {
      * @return - the average error over all instances
      */
     public double learn(LabeledInstances trainData, boolean doStochasticLearning,
-                        int batchSize) {
+            int batchSize) {
 
         double totalError = 0.0;
         int numInBatch = 0;
@@ -156,8 +156,7 @@ public class ANN {
             LabeledInstance inst;
             if (doStochasticLearning) {
                 inst = trainData.get((int) (Math.random() * trainData.size()));
-            }
-            else {
+            } else {
                 inst = trainData.get(i);
             }
             totalError += backpropagateError(inst);
@@ -200,7 +199,7 @@ public class ANN {
         // is really based on the output that was computed when we fed this instance
         // through. Not a big deal.
         return computeOutputError(trainInst,
-                                  this.getOutputLayer().getOutputValues());
+                this.getOutputLayer().getOutputValues());
 
     }
 
@@ -213,14 +212,14 @@ public class ANN {
      * @return
      */
     public static double computeOutputError(LabeledInstance trainInst,
-                                            ArrayList<Double> annOutput) {
+            ArrayList<Double> annOutput) {
 
         double error = 0.0;
         for (int i = 0; i < trainInst.getTargets().size(); i++) {
             // For the time, I'm just going to compute the error as the absolute
             // value between the target and observed output
             error += Math.abs(
-              trainInst.getTarget(i) - annOutput.get(i));
+                    trainInst.getTarget(i) - annOutput.get(i));
         }
         return error / trainInst.getTargets().size();
     }
@@ -234,7 +233,7 @@ public class ANN {
      * @return the average error
      */
     public static double computeOutputError(LabeledInstances data,
-                                            ArrayList<ArrayList<Double>> annOutputs) {
+            ArrayList<ArrayList<Double>> annOutputs) {
         double error = 0.0;
         for (int i = 0; i < data.size(); i++) {
             error += computeOutputError(data.get(i), annOutputs.get(i));
@@ -253,8 +252,8 @@ public class ANN {
      * @param badErrorThreshold - value to use to specify the error threshold
      */
     public static void printResults(ArrayList<ArrayList<Double>> annOutputs,
-                                    LabeledInstances data, boolean doOnlyBad,
-                                    double badErrorThreshold) {
+            LabeledInstances data, boolean doOnlyBad,
+            double badErrorThreshold) {
 
         if (!doOnlyBad) {
             badErrorThreshold = 0.0;
@@ -334,7 +333,7 @@ public class ANN {
     public static void main(String[] args) throws FileNotFoundException {
         // Read in a dataset
         LabeledInstances trainData = new LabeledInstances("./src/circTrain.csv",
-                                                          true, 2);
+                true, 2);
         System.out.println(trainData);
 
         ANN theANN = new ANN(2, 8, 1);
@@ -355,7 +354,7 @@ public class ANN {
                 printResults(output, trainData, true, 0.1);
                 double error = computeOutputError(trainData, output);
                 System.out.println(
-                  "Epoch[" + epoch + "]  Average Error: " + error);
+                        "Epoch[" + epoch + "]  Average Error: " + error);
                 if (error <= errStopThresh) {
                     System.out.println("SUCCESS!");
                     break;

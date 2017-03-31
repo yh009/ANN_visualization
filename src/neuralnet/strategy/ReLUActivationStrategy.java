@@ -10,7 +10,10 @@
  * ****************************************
  */package neuralnet.strategy;
 
-public class ReLUActivationStrategy implements ActivationStrategy {
+import java.io.Serializable;
+
+public class ReLUActivationStrategy implements ActivationStrategy, Serializable {
+
     @Override
     public double f(double x) {
         return Math.max(0.0f, x);

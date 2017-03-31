@@ -10,7 +10,10 @@
  * ****************************************
  */package neuralnet.strategy;
 
-public class LogisticActivationStrategy implements ActivationStrategy {
+import java.io.Serializable;
+
+public class LogisticActivationStrategy implements ActivationStrategy, Serializable {
+
     @Override
     public double f(double x) {
         return 1.0f / (1.0f + Math.exp(-x));

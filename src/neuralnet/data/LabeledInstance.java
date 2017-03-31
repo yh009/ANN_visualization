@@ -12,6 +12,7 @@
  */
 package neuralnet.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +21,8 @@ import java.util.ArrayList;
  *
  * @author brk009
  */
-public class LabeledInstance extends UnlabeledInstance {
+public class LabeledInstance extends UnlabeledInstance implements Serializable {
+
     private ArrayList<Double> target = null;
 
     /**
