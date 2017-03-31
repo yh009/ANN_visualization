@@ -1,6 +1,7 @@
 package csci205_proj_hw3.controller;
 
-/* *****************************************
+/*
+ * *****************************************
  *
  * CSCI205 - Software Engineering and Design
  *
