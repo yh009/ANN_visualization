@@ -12,6 +12,7 @@
  */
 package neuralnet;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,7 +20,8 @@ import java.util.Arrays;
  *
  * @author brk009
  */
-public class Edges {
+public class Edges implements Serializable {
+
     private Layer inLayer;
     private Layer outLayer;
     private Edge[][] edges;
@@ -39,7 +41,7 @@ public class Edges {
         for (int j = 0; j < outLayer.getNumNeurons(); j++) {
             for (int i = 0; i < inLayer.getNumNeurons(); i++) {
                 this.edges[j][i] = new Edge(outLayer.getNeuron(j),
-                                            inLayer.getNeuron(i));
+                        inLayer.getNeuron(i));
             }
             thetaEdges[j] = new BiasEdge(outLayer.getNeuron(j));
         }
@@ -82,7 +84,7 @@ public class Edges {
             double net = 0.0;
             for (int i = 0; i < inLayer.getNumNeurons(); i++) {
                 net += inLayer.getNeuron(i).getActivatedOutput()
-                       * edges[j][i].getWeight();
+                        * edges[j][i].getWeight();
             }
             // And, add in the theta/bias!
             net -= thetaEdges[j].getWeight();
@@ -117,8 +119,7 @@ public class Edges {
             if (isOutputEdges) {
                 // Compute the error
                 error = nOut.getActivatedOutput() - targetOutput.get(j);
-            }
-            else {
+            } else {
                 // We need to back propagate all edges from ALL of the outgoing
                 // edges of Neuron nOut
                 Edges downEdges = this.getOutLayer().getOutputToEdges();
@@ -127,7 +128,7 @@ public class Edges {
                 // of the outgoing edges of neuron j.
                 for (int k = 0; k < downEdges.getOutLayer().getNumNeurons(); k++) {
                     double term = downEdges.getOutSensitivy()[k] * downEdges.getWeightOf(
-                      k, j);
+                            k, j);
                     error += term;
                 }
             }
@@ -139,8 +140,8 @@ public class Edges {
             // Compute delta weight values
             for (int i = 0; i < inLayer.getNumNeurons(); i++) {
                 edges[j][i].updateDeltaWeight(
-                  -ANN.learningRate * sensitivity * inLayer.getOutputValueOf(
-                    i));
+                        -ANN.learningRate * sensitivity * inLayer.getOutputValueOf(
+                                i));
 //                edges[j][i].updateDeltaWeight(
 //                        sensitivity * inLayer.getOutputValueOf(i));
 //                edges[j][i].setDeltaWeight(
@@ -166,9 +167,9 @@ public class Edges {
     @Override
     public String toString() {
         return "Edges{\t" + "inLayer=" + inLayer
-               + "\toutLayer=" + outLayer + '\n'
-               + "\tedges=" + Arrays.deepToString(edges) + '\n'
-               + "\toutSensitivity=" + Arrays.toString(outSensitivity) + '}';
+                + "\toutLayer=" + outLayer + '\n'
+                + "\tedges=" + Arrays.deepToString(edges) + '\n'
+                + "\toutSensitivity=" + Arrays.toString(outSensitivity) + '}';
     }
 
 }

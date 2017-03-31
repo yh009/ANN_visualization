@@ -10,7 +10,10 @@
  * ****************************************
  */package neuralnet.strategy;
 
-public class LinearActivationStrategy implements ActivationStrategy {
+import java.io.Serializable;
+
+public class LinearActivationStrategy implements ActivationStrategy, Serializable {
+
     @Override
     public double f(double x) {
         return x;

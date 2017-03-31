@@ -12,6 +12,8 @@
  */
 package neuralnet;
 
+import java.io.Serializable;
+
 /**
  * Edge
  *
@@ -21,7 +23,7 @@ package neuralnet;
  *
  * @author brk009
  */
-public class Edge {
+public class Edge implements Serializable {
 
     private final Neuron inNeuron;
     private final Neuron outNeuron;
@@ -100,6 +102,7 @@ public class Edge {
  * @author brk009
  */
 class BiasEdge extends Edge {
+
     public BiasEdge(Neuron outNeuron) {
         super(outNeuron, null);
     }

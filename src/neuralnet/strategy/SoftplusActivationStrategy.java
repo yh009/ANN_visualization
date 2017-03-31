@@ -15,7 +15,10 @@
  */
 package neuralnet.strategy;
 
-public class SoftplusActivationStrategy implements ActivationStrategy {
+import java.io.Serializable;
+
+public class SoftplusActivationStrategy implements ActivationStrategy, Serializable {
+
     @Override
     public double f(double x) {
         return Math.log(1 + Math.exp(x));

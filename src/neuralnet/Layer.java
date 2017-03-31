@@ -12,6 +12,7 @@
  */
 package neuralnet;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,7 +20,7 @@ import java.util.Arrays;
  *
  * @author brk009
  */
-public class Layer {
+public class Layer implements Serializable {
 
     private int numNeurons;
     private Neuron[] neurons;

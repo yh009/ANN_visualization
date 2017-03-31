@@ -14,6 +14,7 @@ package neuralnet.data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,7 +22,7 @@ import java.util.Scanner;
  *
  * @author brk009
  */
-public class UnlabeledInstances extends ArrayList<UnlabeledInstance> {
+public class UnlabeledInstances extends ArrayList<UnlabeledInstance> implements Serializable {
 
     /**
      * Construct a new empty Data object

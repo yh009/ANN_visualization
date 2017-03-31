@@ -14,6 +14,7 @@ package neuralnet.data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -25,7 +26,8 @@ import java.util.Scanner;
  *
  * @author brk009
  */
-public class LabeledInstances extends ArrayList<LabeledInstance> {
+public class LabeledInstances extends ArrayList<LabeledInstance> implements Serializable {
+
     public LabeledInstances() {
 
     }
@@ -41,7 +43,7 @@ public class LabeledInstances extends ArrayList<LabeledInstance> {
      * @throws FileNotFoundException
      */
     public LabeledInstances(String sCSVFileName, boolean skipHeader,
-                            Integer... targetIndices) throws FileNotFoundException {
+            Integer... targetIndices) throws FileNotFoundException {
         this();
 
         Scanner in = new Scanner(new File(sCSVFileName));
@@ -83,8 +85,7 @@ public class LabeledInstances extends ArrayList<LabeledInstance> {
                 // Iterate through the list of target indices...
                 if (targetIndexList.contains(i)) {
                     targets.add(num);
-                }
-                else {
+                } else {
                     xVec.add(num);
                 }
             }
