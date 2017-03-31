@@ -40,6 +40,7 @@ import csci205_proj_hw3.view.ANNFileView;
 import csci205_proj_hw3.view.ANNView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class FileCtrl implements EventHandler<ActionEvent> {
@@ -47,10 +48,14 @@ public class FileCtrl implements EventHandler<ActionEvent> {
     private ANNModel theModel;
     private ANNView theView;
     private Stage fileStage;
+    //private selectConfigFileChooser SCFC;
+    private ANNFileView fileView;
 
     public FileCtrl(ANNModel theModel, ANNView theView) {
         this.theModel = theModel;
         this.theView = theView;
+        this.fileView = new ANNFileView();
+        //this.SCFC = new selectConfigFileChooser(this.fileView);
         this.theView.getFileBtn().setOnAction(this);
 
     }
@@ -59,7 +64,10 @@ public class FileCtrl implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         this.fileStage = new Stage();
         fileStage.setTitle("Choose Option");
-        fileStage.setScene(new ANNFileView().getRoot());
+        Scene scene = new Scene(fileView.getRoot());
+        fileStage.setScene(scene);
+        fileStage.sizeToScene();
+        fileStage.show();
 
         // Open a new window with three buttons on it: openANN, saveANN, openData
     }

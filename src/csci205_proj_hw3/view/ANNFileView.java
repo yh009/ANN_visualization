@@ -1,7 +1,8 @@
 package csci205_proj_hw3.view;
 
+import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.FlowPane;
 
 /*
  * *****************************************
@@ -44,23 +45,44 @@ public class ANNFileView {
     private Button saveConfig;
     private Button selectData;
     private Button exit;
-    private HBox root;
+    private FlowPane root;
 
     public ANNFileView() {
         selectConfig = new Button("Select Config");
         saveConfig = new Button("Save Config");
         selectData = new Button("Select Test File");
         exit = new Button("Exit");
+        //FlowPane centerPane = new FlowPane(Orientation.HORIZONTAL);
+        //centerPane.setAlignment(Pos.CENTER);
+        //centerPane.setHgap(10);
 
-        root = new HBox(10);
-        root.setPrefHeight(100);
-        root.setPrefWidth(500);
+        root = new FlowPane(Orientation.HORIZONTAL);
+        //root.setPrefHeight(100);
+        //root.setPrefWidth(500);
         root.getChildren().addAll(selectConfig, saveConfig, selectData, exit);
+        root.setHgap(30);
+        //root.setAlignment(Pos.CENTER);
 
     }
 
-    public HBox getRoot() {
+    public FlowPane getRoot() {
         return root;
+    }
+
+    public Button getSelectConfig() {
+        return selectConfig;
+    }
+
+    public Button getSaveConfig() {
+        return saveConfig;
+    }
+
+    public Button getSelectData() {
+        return selectData;
+    }
+
+    public Button getExit() {
+        return exit;
     }
 
 }
