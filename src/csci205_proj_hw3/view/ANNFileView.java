@@ -3,6 +3,8 @@ package csci205_proj_hw3.view;
 import csci205_proj_hw3.controller.close;
 import csci205_proj_hw3.controller.saveConfigFileChooser;
 import csci205_proj_hw3.controller.selectConfigFileChooser;
+import csci205_proj_hw3.controller.selectTestFileChooser;
+import csci205_proj_hw3.model.ANNModel;
 import java.io.File;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
@@ -52,11 +54,13 @@ public class ANNFileView {
     private FlowPane root;
     private selectConfigFileChooser selectConfigFC;
     private saveConfigFileChooser saveConfigFC;
-    private File selectedFile;
+    private selectTestFileChooser testFC;
+    //private File selectedFile;
     private File selectedData;
     private close closeWindow;
+    private ANNModel theModel;
 
-    public ANNFileView() {
+    public ANNFileView(ANNModel theModel) {
         selectConfig = new Button("Select Config");
         saveConfig = new Button("Save Config");
         selectData = new Button("Select Test File");
@@ -72,13 +76,16 @@ public class ANNFileView {
         root.setHgap(30);
         selectConfigFC = new selectConfigFileChooser(this);
         saveConfigFC = new saveConfigFileChooser(this);
+        testFC = new selectTestFileChooser(this);
         closeWindow = new close(this);
+        this.theModel = theModel;
         //root.setAlignment(Pos.CENTER);
 
     }
 
     public void fileSelected(File selectedFile) {
-        this.selectedFile = selectedFile;
+        //this.selectedFile = selectedFile;
+        theModel.readSerilizationAnn(selectedFile);
         //TODO action for selected file
 
     }

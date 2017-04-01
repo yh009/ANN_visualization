@@ -1,5 +1,7 @@
 package csci205_proj_hw3.view;
 
+import csci205_proj_hw3.controller.GenANN;
+import csci205_proj_hw3.model.ANNModel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -50,8 +52,10 @@ public class ANNConfigView {
     private TextField numInput;
     private VBox root;
     private Button genANN;
+    private GenANN createANN;
+    private ANNModel theModel;
 
-    public ANNConfigView() {
+    public ANNConfigView(ANNModel theModel) {
         genANN = new Button("Generate ANN");
 
         root = new VBox(10);
@@ -63,23 +67,25 @@ public class ANNConfigView {
         numInput = new TextField();
         numInput.setAlignment(Pos.CENTER);
         numInput.setPrefColumnCount(5);
-        one.getChildren().addAll(new Label("# input: "), numInput);
+        one.getChildren().addAll(new Label("# input nodes: "), numInput);
 
         HBox two = new HBox(10);
         two.setAlignment(Pos.CENTER);
         numHidden = new TextField();
         numHidden.setAlignment(Pos.CENTER);
         numHidden.setPrefColumnCount(5);
-        two.getChildren().addAll(new Label("# perceptrons in Hidden Layer: "), numHidden);
+        two.getChildren().addAll(new Label("# hidden nodes: "), numHidden);
 
         HBox three = new HBox(10);
         three.setAlignment(Pos.CENTER);
         numOutput = new TextField();
         numOutput.setAlignment(Pos.CENTER);
         numOutput.setPrefColumnCount(5);
-        three.getChildren().addAll(new Label("# output: "), numOutput);
+        three.getChildren().addAll(new Label("# output node: "), numOutput);
 
         root.getChildren().addAll(one, two, three, genANN);
+        theModel = theModel;
+        createANN = new GenANN(theModel, this);
 
     }
 

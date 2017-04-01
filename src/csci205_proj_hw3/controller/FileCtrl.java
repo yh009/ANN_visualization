@@ -64,7 +64,7 @@ public class FileCtrl implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         this.fileStage = new Stage();
         fileStage.setTitle("Choose Option");
-        this.fileView = new ANNFileView();
+        this.fileView = new ANNFileView(theModel);
         //if (theView.g)
         Scene scene = new Scene(fileView.getRoot());
         fileStage.setScene(scene);
