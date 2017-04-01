@@ -1,5 +1,8 @@
 package csci205_proj_hw3.view;
 
+import csci205_proj_hw3.controller.ConfigCtrl;
+import csci205_proj_hw3.controller.FileCtrl;
+import csci205_proj_hw3.controller.close;
 import csci205_proj_hw3.model.ANNModel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -59,9 +62,13 @@ public class ANNView {
     private Label txtLR;
     private Label txtCombo;
     private ComboBox<String> combo;
+    private close closeWindow;
+    private FileCtrl theCtrl;
+    private ConfigCtrl configCtrl;
 
     public ANNView(ANNModel theModel) {
         this.theModel = theModel;
+
         fileBtn = new Button("File");
 
         configBtn = new Button("Config");
@@ -88,6 +95,9 @@ public class ANNView {
         root.setPrefHeight(900);
         root.setPadding(new Insets(10, 15, 15, 15));
         root.setTop(topPane);
+        closeWindow = new close(this);
+        theCtrl = new FileCtrl(theModel, this);
+        configCtrl = new ConfigCtrl(theModel, this);
 
     }
 

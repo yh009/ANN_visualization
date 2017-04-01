@@ -1,6 +1,5 @@
 package csci205_proj_hw3;
 
-import csci205_proj_hw3.controller.FileCtrl;
 import csci205_proj_hw3.model.ANNModel;
 import csci205_proj_hw3.view.ANNView;
 import javafx.application.Application;
@@ -48,7 +47,7 @@ import javafx.stage.Stage;
 public class ANNMain extends Application {
 
     private ANNView theView;
-    private FileCtrl theCtrl;
+    //private FileCtrl theCtrl;
     private ANNModel theModel;
 
     @Override
@@ -56,7 +55,7 @@ public class ANNMain extends Application {
         super.init();
         this.theModel = new ANNModel();
         this.theView = new ANNView(theModel);
-        this.theCtrl = new FileCtrl(theModel, theView);
+        //this.theCtrl = new FileCtrl(theModel, theView);
     }
 
     @Override

@@ -1,5 +1,9 @@
 package csci205_proj_hw3.view;
 
+import csci205_proj_hw3.controller.close;
+import csci205_proj_hw3.controller.saveConfigFileChooser;
+import csci205_proj_hw3.controller.selectConfigFileChooser;
+import java.io.File;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
@@ -46,6 +50,11 @@ public class ANNFileView {
     private Button selectData;
     private Button exit;
     private FlowPane root;
+    private selectConfigFileChooser selectConfigFC;
+    private saveConfigFileChooser saveConfigFC;
+    private File selectedFile;
+    private File selectedData;
+    private close closeWindow;
 
     public ANNFileView() {
         selectConfig = new Button("Select Config");
@@ -61,8 +70,22 @@ public class ANNFileView {
         //root.setPrefWidth(500);
         root.getChildren().addAll(selectConfig, saveConfig, selectData, exit);
         root.setHgap(30);
+        selectConfigFC = new selectConfigFileChooser(this);
+        saveConfigFC = new saveConfigFileChooser(this);
+        closeWindow = new close(this);
         //root.setAlignment(Pos.CENTER);
 
+    }
+
+    public void fileSelected(File selectedFile) {
+        this.selectedFile = selectedFile;
+        //TODO action for selected file
+
+    }
+
+    public void dataSelected(File selectedData) {
+        this.selectedData = selectedData;
+        //TODO
     }
 
     public FlowPane getRoot() {

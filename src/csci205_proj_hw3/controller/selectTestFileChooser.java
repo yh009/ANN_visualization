@@ -18,9 +18,9 @@ import javafx.stage.Stage;
  *
  * Name: Zilin Ma, Yuxuan Huang
  *
- * Date: Mar 31, 2017
+ * Date: Apr 1, 2017
  *
- * Time: 1:45:18 PM
+ * Time: 12:27:36 AM
  *
  *
  *
@@ -28,7 +28,7 @@ import javafx.stage.Stage;
  *
  * Package: csci205_proj_hw3.controller
  *
- * File: selectConfigFileChooser
+ * File: selectTestFileChooser
  *
  * Description:
  *
@@ -40,16 +40,15 @@ import javafx.stage.Stage;
  *
  * /**
  *
- * @author yh009
+ * @author mac
  */
-public class selectConfigFileChooser implements EventHandler<ActionEvent> {
+public class selectTestFileChooser implements EventHandler<ActionEvent> {
 
     ANNFileView fileView;
 
-    public selectConfigFileChooser(ANNFileView fileView) {
+    public selectTestFileChooser(ANNFileView fileView) {
         this.fileView = fileView;
-        this.fileView.getSelectConfig().setOnAction(this);
-
+        fileView.getSelectData().setOnAction(this);
     }
 
     @Override
@@ -61,7 +60,6 @@ public class selectConfigFileChooser implements EventHandler<ActionEvent> {
 
         File configFile = fileChooser.showOpenDialog(new Stage());
         fileView.fileSelected(configFile);
-
     }
 
 }

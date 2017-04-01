@@ -18,9 +18,9 @@ import javafx.stage.Stage;
  *
  * Name: Zilin Ma, Yuxuan Huang
  *
- * Date: Mar 31, 2017
+ * Date: Apr 1, 2017
  *
- * Time: 1:45:18 PM
+ * Time: 12:17:54 AM
  *
  *
  *
@@ -28,7 +28,7 @@ import javafx.stage.Stage;
  *
  * Package: csci205_proj_hw3.controller
  *
- * File: selectConfigFileChooser
+ * File: saveConfigFileChooser
  *
  * Description:
  *
@@ -40,15 +40,15 @@ import javafx.stage.Stage;
  *
  * /**
  *
- * @author yh009
+ * @author mac
  */
-public class selectConfigFileChooser implements EventHandler<ActionEvent> {
+public class saveConfigFileChooser implements EventHandler<ActionEvent> {
 
     ANNFileView fileView;
 
-    public selectConfigFileChooser(ANNFileView fileView) {
+    public saveConfigFileChooser(ANNFileView fileView) {
         this.fileView = fileView;
-        this.fileView.getSelectConfig().setOnAction(this);
+        fileView.getSaveConfig().setOnAction(this);
 
     }
 
@@ -56,12 +56,15 @@ public class selectConfigFileChooser implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         File workingDirectory = new File(System.getProperty("user.dir"));
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Config File");
+        fileChooser.setTitle("Save Config File");
         fileChooser.setInitialDirectory(workingDirectory);
 
-        File configFile = fileChooser.showOpenDialog(new Stage());
-        fileView.fileSelected(configFile);
+        File dest = fileChooser.showSaveDialog(new Stage());
+        if (dest != null) {
+            //TODO get ANN to save
+            //Files.copy(file.toPath(), dest.toPath());
 
+        }
     }
 
 }

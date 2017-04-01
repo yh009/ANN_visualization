@@ -54,7 +54,7 @@ public class FileCtrl implements EventHandler<ActionEvent> {
     public FileCtrl(ANNModel theModel, ANNView theView) {
         this.theModel = theModel;
         this.theView = theView;
-        this.fileView = new ANNFileView();
+
         //this.SCFC = new selectConfigFileChooser(this.fileView);
         this.theView.getFileBtn().setOnAction(this);
 
@@ -64,6 +64,8 @@ public class FileCtrl implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         this.fileStage = new Stage();
         fileStage.setTitle("Choose Option");
+        this.fileView = new ANNFileView();
+        //if (theView.g)
         Scene scene = new Scene(fileView.getRoot());
         fileStage.setScene(scene);
         fileStage.sizeToScene();
