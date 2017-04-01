@@ -69,6 +69,10 @@ public class Edges implements Serializable {
         return this.edges[out][in];
     }
 
+    public Edge[][] getEdges() {
+        return edges;
+    }
+
     /**
      * This is a essential method for dealing with the feedforward algorithm
      * This method computes the net input for every output neuron. It does not

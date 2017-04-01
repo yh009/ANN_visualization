@@ -7,9 +7,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import neuralnet.ANN;
+import neuralnet.Edge;
+import neuralnet.Edges;
 import neuralnet.data.LabeledInstances;
 
 /*
@@ -51,6 +54,12 @@ public class ANNModel {
 
     private ANN myANN;
     private LabeledInstances data;
+    private int indexPointer = 0;
+
+    public ANNModel(ANN myANN, LabeledInstances data) {
+        this.myANN = myANN;
+        this.data = data;
+    }
 
     public ANNModel() {
 
@@ -109,10 +118,43 @@ public class ANNModel {
     }
 
     /**
-     * Trains one instance.
+     * Trains one instance and increment index pointer. Only classify one
+     * instance and the index of this instance is the current value of
+     * indexPointer. TODO
      */
     public void trainOneInstance() {
-        myANN.classifyInstances(data);
+
+        indexPointer++;
+    }
+
+    /**
+     * Return the dimension of the layer as a list of integers. The first
+     * integer is the number of neurons of input layers and so on. The format
+     * is: [input][hidden][output]
+     *
+     * @return Dimension of the array.
+     */
+    public ArrayList<Integer> getANNInfo() {
+        return myANN.getANNLayerDim();
+    }
+
+    /**
+     * Returns the weights as an array list of ARRAY of weights. The first index
+     * represent the first node in the input layer, and this moves down.
+     *
+     * @return array list of ARRAYs.
+     */
+    public ArrayList<Edge[]> getWeights() {
+        ArrayList<Edge[]> edges = new ArrayList<>();
+        for (int i = 0; i < myANN.getNumLayers(); i++) {
+            Edges e = myANN.getEdges(i);
+            Edge[][] edgeses = e.getEdges();
+            for (int j = 0; j < edgeses.length; j++) {
+                edges.add(edgeses[j]);
+            }
+        }
+
+        return edges;
     }
 
     /**
@@ -163,4 +205,5 @@ public class ANNModel {
         return myANN;
 
     }
+
 }

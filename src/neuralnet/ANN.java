@@ -300,6 +300,10 @@ public class ANN implements Serializable {
         return (InputLayer) this.getLayer(0);
     }
 
+    public Edges[] getEdgeConnections() {
+        return edgeConnections;
+    }
+
     public Layer getOutputLayer() {
         return this.getLayer(this.layers.length - 1);
     }
