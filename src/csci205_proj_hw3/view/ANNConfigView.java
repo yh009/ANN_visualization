@@ -54,9 +54,12 @@ public class ANNConfigView {
     private Button genANN;
     private GenANN createANN;
     private ANNModel theModel;
+    private ANNView theView;
 
-    public ANNConfigView(ANNModel theModel) {
+    public ANNConfigView(ANNModel theModel, ANNView theView) {
         genANN = new Button("Generate ANN");
+        this.theModel = theModel;
+        this.theView = theView;
 
         root = new VBox(10);
         root.setPadding(new Insets(10, 15, 15, 15));
@@ -85,7 +88,7 @@ public class ANNConfigView {
 
         root.getChildren().addAll(one, two, three, genANN);
         theModel = theModel;
-        createANN = new GenANN(theModel, this);
+        createANN = new GenANN(theModel, this, theView);
 
     }
 

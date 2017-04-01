@@ -59,8 +59,9 @@ public class ANNFileView {
     private File selectedData;
     private close closeWindow;
     private ANNModel theModel;
+    private ANNView theView;
 
-    public ANNFileView(ANNModel theModel) {
+    public ANNFileView(ANNModel theModel, ANNView theView) {
         selectConfig = new Button("Select Config");
         saveConfig = new Button("Save Config");
         selectData = new Button("Select Test File");
@@ -79,6 +80,7 @@ public class ANNFileView {
         testFC = new selectTestFileChooser(this, theModel);
         closeWindow = new close(this);
         this.theModel = theModel;
+        this.theView = theView;
         //root.setAlignment(Pos.CENTER);
 
     }
@@ -86,8 +88,9 @@ public class ANNFileView {
     public void fileSelected(File selectedFile) {
         //this.selectedFile = selectedFile;
         theModel.readAnn(selectedFile);
-        //TODO action for selected file
+        theView.genGraph();
 
+        //TODO action for selected file
     }
 
     public void dataSelected(File selectedData) {

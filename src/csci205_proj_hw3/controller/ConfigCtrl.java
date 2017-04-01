@@ -61,7 +61,7 @@ public class ConfigCtrl implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         this.fileStage = new Stage();
         fileStage.setTitle("Enter Config");
-        this.configView = new ANNConfigView(theModel);
+        this.configView = new ANNConfigView(theModel, theView);
         //if (theView.g)
         Scene scene = new Scene(configView.getRoot());
         fileStage.setScene(scene);

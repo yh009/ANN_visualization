@@ -2,6 +2,7 @@ package csci205_proj_hw3.controller;
 
 import csci205_proj_hw3.model.ANNModel;
 import csci205_proj_hw3.view.ANNConfigView;
+import csci205_proj_hw3.view.ANNView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -45,10 +46,12 @@ import javafx.stage.Stage;
 public class GenANN implements EventHandler<ActionEvent> {
 
     private ANNModel theModel;
+    private ANNView theView;
     private ANNConfigView configView;
 
-    public GenANN(ANNModel theModel, ANNConfigView configView) {
+    public GenANN(ANNModel theModel, ANNConfigView configView, ANNView theView) {
         this.theModel = theModel;
+        this.theView = theView;
         this.configView = configView;
         configView.getGenANN().setOnAction(this);
 
@@ -61,6 +64,8 @@ public class GenANN implements EventHandler<ActionEvent> {
             int numHidden = Integer.parseInt(configView.getNumHidden().getText());
             int numOutput = Integer.parseInt(configView.getNumOutput().getText());
             theModel.readANNConfig(numInput, numHidden, numOutput);
+            theView.genGraph();
+
             //TODO generate graph
             Stage stage = (Stage) configView.getGenANN().getScene().getWindow();
             stage.hide();
