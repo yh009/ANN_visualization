@@ -66,6 +66,7 @@ public class saveConfigFileChooser implements EventHandler<ActionEvent> {
         File dest = fileChooser.showSaveDialog(new Stage());
 
         if (dest != null) {
+            theModel.saveANN(dest.getAbsolutePath());
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -76,7 +76,7 @@ public class ANNFileView {
         root.setHgap(30);
         selectConfigFC = new selectConfigFileChooser(this);
         saveConfigFC = new saveConfigFileChooser(this, theModel);
-        testFC = new selectTestFileChooser(this);
+        testFC = new selectTestFileChooser(this, theModel);
         closeWindow = new close(this);
         this.theModel = theModel;
         //root.setAlignment(Pos.CENTER);
