@@ -85,7 +85,7 @@ public class ANNModel {
      *
      * @param file
      */
-    public void readSerilizationAnn(File file) {
+    public void readAnn(File file) {
         try {
             myANN = deserializeANN(file.getAbsolutePath());
         } catch (IOException ex) {
@@ -100,7 +100,7 @@ public class ANNModel {
      *
      * @param dir the name of the directory where the current ANN is stored.
      */
-    public void serilizeANN(String dir) {
+    public void saveANN(String dir) {
         try {
             serializeANN(myANN, dir);
         } catch (IOException ex) {
