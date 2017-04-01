@@ -98,7 +98,7 @@ public class ANNModel {
     /**
      * Save file in a given dir
      *
-     * @param dir The directory where the ANN is stored.
+     * @param dir the name of the directory where the current ANN is stored.
      */
     public void serilizeANN(String dir) {
         try {
@@ -194,20 +194,20 @@ public class ANNModel {
      * serialized, and fileName is the .ser filename.
      *
      * @param myANN
-     * @param fileName
+     * @param dirName the directory of name.
      * @throws java.io.FileNotFoundException
      * @see
      * <a href="https://www.tutorialspoint.com/java/java_serialization.htm">https://www.tutorialspoint.com/java/java_serialization.htm</a>
      */
-    public static void serializeANN(ANN myANN, String fileName) throws FileNotFoundException, IOException {
+    public static void serializeANN(ANN myANN, String dirName) throws FileNotFoundException, IOException {
         //try {
-        fileName += ".ser";
-        FileOutputStream fileOut = new FileOutputStream(fileName);
+        dirName += ".ser";
+        FileOutputStream fileOut = new FileOutputStream(dirName);
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(myANN);
         out.close();
         fileOut.close();
-        System.out.printf("Serialized data is saved in " + fileName + "\n");
+        System.out.printf("Serialized data is saved in " + dirName + "\n");
 
         //} catch (IOException i) {
         //}
