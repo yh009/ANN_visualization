@@ -85,7 +85,7 @@ public class ANNFileView {
 
     public void fileSelected(File selectedFile) {
         //this.selectedFile = selectedFile;
-        theModel.readSerilizationAnn(selectedFile);
+        theModel.readAnn(selectedFile);
         //TODO action for selected file
 
     }
