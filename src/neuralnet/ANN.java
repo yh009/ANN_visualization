@@ -142,7 +142,7 @@ public class ANN implements Serializable {
      * @param trainData - the labeled dataset of instances required to learn
      * @param doStochasticLearning - If true, we do stochastic learning,
      * meaning, we randomly draw instances from the dataset
-     * @param batschSize - Number of instances to accumulate before updating
+     * @param batchSize - Number of instances to accumulate before updating
      * weights
      * @return - the average error over all instances
      */
