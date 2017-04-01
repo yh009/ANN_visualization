@@ -75,7 +75,7 @@ public class ANNFileView {
         root.getChildren().addAll(selectConfig, saveConfig, selectData, exit);
         root.setHgap(30);
         selectConfigFC = new selectConfigFileChooser(this);
-        saveConfigFC = new saveConfigFileChooser(this);
+        saveConfigFC = new saveConfigFileChooser(this, theModel);
         testFC = new selectTestFileChooser(this);
         closeWindow = new close(this);
         this.theModel = theModel;

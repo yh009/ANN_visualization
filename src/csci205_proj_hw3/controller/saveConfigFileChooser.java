@@ -1,9 +1,11 @@
 package csci205_proj_hw3.controller;
 
+import csci205_proj_hw3.model.ANNModel;
 import csci205_proj_hw3.view.ANNFileView;
 import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -45,9 +47,11 @@ import javafx.stage.Stage;
 public class saveConfigFileChooser implements EventHandler<ActionEvent> {
 
     ANNFileView fileView;
+    ANNModel theModel;
 
-    public saveConfigFileChooser(ANNFileView fileView) {
+    public saveConfigFileChooser(ANNFileView fileView, ANNModel theModel) {
         this.fileView = fileView;
+        this.theModel = theModel;
         fileView.getSaveConfig().setOnAction(this);
 
     }
@@ -60,10 +64,16 @@ public class saveConfigFileChooser implements EventHandler<ActionEvent> {
         fileChooser.setInitialDirectory(workingDirectory);
 
         File dest = fileChooser.showSaveDialog(new Stage());
-        if (dest != null) {
-            //TODO get ANN to save
-            //Files.copy(file.toPath(), dest.toPath());
 
+        if (dest != null) {
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Incorrect input!");
+            alert.setHeaderText("Incorrect input specified!");
+            alert.setContentText("Please enter a filename!");
+
+            alert.show();
         }
     }
 
