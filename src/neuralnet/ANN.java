@@ -312,6 +312,10 @@ public class ANN implements Serializable {
         return this.layers.length;
     }
 
+    public static void setActivation(ActivationStrategy activation) {
+        ANN.activation = activation;
+    }
+
     /**
      * Useful method that returns the dimensions of the ANN layers as a list of
      * Integers. Might prove useful.

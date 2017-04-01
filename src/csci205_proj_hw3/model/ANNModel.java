@@ -14,6 +14,10 @@ import neuralnet.ANN;
 import neuralnet.Edge;
 import neuralnet.Edges;
 import neuralnet.data.LabeledInstances;
+import neuralnet.strategy.ActivationStrategy;
+import neuralnet.strategy.LinearActivationStrategy;
+import neuralnet.strategy.ReLUActivationStrategy;
+import neuralnet.strategy.SoftplusActivationStrategy;
 
 /*
  * *****************************************
@@ -155,6 +159,34 @@ public class ANNModel {
         }
 
         return edges;
+    }
+
+    /**
+     * change the activation function as specified using a string with the exact
+     * name of the activation function.
+     *
+     * @param actString the name of the activation function.
+     */
+    public void changeActivationFunction(String actString) {
+        ActivationStrategy as = null;
+        switch (actString) {
+            case "LinearActivationStrategy":
+                as = new LinearActivationStrategy();
+                break;
+            case "LogisticActivationStrategy":
+                as = new LinearActivationStrategy();
+                break;
+            case "ReLUActivationStrategy":
+                as = new ReLUActivationStrategy();
+                break;
+            case "SoftplusActivationStrategy":
+                as = new SoftplusActivationStrategy();
+                break;
+        }
+        if (as == null) {
+            as = new LinearActivationStrategy();
+        }
+        ANN.setActivation(as);
     }
 
     /**
