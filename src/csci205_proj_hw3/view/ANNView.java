@@ -1,7 +1,6 @@
 package csci205_proj_hw3.view;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import csci205_proj_hw3.model.ANNModel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -48,6 +47,7 @@ import javafx.scene.layout.HBox;
  */
 public class ANNView {
 
+    private ANNModel theModel;
     private BorderPane root;
     private Button exitBtn;
     private Button configBtn;
@@ -60,31 +60,13 @@ public class ANNView {
     private Label txtCombo;
     private ComboBox<String> combo;
 
-    public ANNView() {
+    public ANNView(ANNModel theModel) {
+        this.theModel = theModel;
         fileBtn = new Button("File");
-        fileBtn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("File press");
-            }
-        });
 
         configBtn = new Button("Config");
-        configBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Config press");
-            }
-        });
 
         exitBtn = new Button("Exit");
-        exitBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Exit press");
-            }
-        });
 
         txtLR = new Label("Learning Rate:");
         inputLR = new TextField();
@@ -97,15 +79,6 @@ public class ANNView {
         combo = new ComboBox<>();
         combo.getItems().setAll("Linear", "Logistic", "ReLU", "Softplus");
         combo.getSelectionModel().select(0);
-        /*
-         * combo.setVisible(false); txtCombo.setOnMouseEntered(event ->
-         * combo.setVisible(true));
-         * combo.showingProperty().addListener(ovservable -> { if
-         * (!combo.isShowing()) { combo.setVisible(false); }
-         *
-         * }); combo.setOnMouseExited(event -> { if (!combo.isShowing()) {
-         * combo.setVisible(false); } });
-         */
 
         root = new BorderPane();
         topPane = new HBox(10);
@@ -120,6 +93,22 @@ public class ANNView {
 
     public BorderPane getRoot() {
         return root;
+    }
+
+    public Button getExitBtn() {
+        return exitBtn;
+    }
+
+    public Button getConfigBtn() {
+        return configBtn;
+    }
+
+    public Button getFileBtn() {
+        return fileBtn;
+    }
+
+    public ComboBox<String> getCombo() {
+        return combo;
     }
 
 }
