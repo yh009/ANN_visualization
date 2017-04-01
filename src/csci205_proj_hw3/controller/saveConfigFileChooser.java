@@ -3,6 +3,9 @@ package csci205_proj_hw3.controller;
 import csci205_proj_hw3.model.ANNModel;
 import csci205_proj_hw3.view.ANNFileView;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -66,7 +69,11 @@ public class saveConfigFileChooser implements EventHandler<ActionEvent> {
         File dest = fileChooser.showSaveDialog(new Stage());
 
         if (dest != null) {
-            theModel.saveANN(dest.getAbsolutePath());
+            try {
+                theModel.saveANN(dest.getAbsolutePath());
+            } catch (IOException ex) {
+                Logger.getLogger(saveConfigFileChooser.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

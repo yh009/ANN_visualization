@@ -6,6 +6,7 @@ import csci205_proj_hw3.controller.selectConfigFileChooser;
 import csci205_proj_hw3.controller.selectTestFileChooser;
 import csci205_proj_hw3.model.ANNModel;
 import java.io.File;
+import java.io.IOException;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
@@ -85,7 +86,7 @@ public class ANNFileView {
 
     }
 
-    public void fileSelected(File selectedFile) {
+    public void fileSelected(File selectedFile) throws IOException {
         //this.selectedFile = selectedFile;
         theModel.readAnn(selectedFile);
         theView.genGraph();
