@@ -1,12 +1,9 @@
 package csci205_proj_hw3.model;
 
+import csci205_proj_hw3.utility.ANNUtil;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,12 +81,11 @@ public class ANNModel {
      * Read in a serilized ANN file.
      *
      * @param file
+     * @throws java.io.IOException
      */
-    public void readAnn(File file) {
+    public void readAnn(File file) throws IOException {
         try {
-            myANN = deserializeANN(file.getAbsolutePath());
-        } catch (IOException ex) {
-            Logger.getLogger(ANNModel.class.getName()).log(Level.SEVERE, null, ex);
+            myANN = ANNUtil.deserializeANN(file.getAbsolutePath());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ANNModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -99,13 +95,10 @@ public class ANNModel {
      * Save file in a given dir
      *
      * @param dir the name of the directory where the current ANN is stored.
+     * @throws java.io.IOException
      */
-    public void saveANN(String dir) {
-        try {
-            serializeANN(myANN, dir);
-        } catch (IOException ex) {
-            Logger.getLogger(ANNModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void saveANN(String dir) throws IOException {
+        ANNUtil.serializeANN(myANN, dir);
 
     }
 
@@ -132,6 +125,23 @@ public class ANNModel {
     }
 
     /**
+     * Runs numEpoch number of epochs, and train the ANN.
+     */
+    public void runMultipleEpoch(int numEpoch) {
+        for (int i = 0; i < numEpoch; i++) {
+            myANN.learn(data, true, 1);
+
+        }
+    }
+
+    /**
+     * Classify a group of data. TODO
+     */
+    public void classifyData() {
+        myANN.classifyInstances(data);
+    }
+
+    /**
      * Return the dimension of the layer as a list of integers. The first
      * integer is the number of neurons of input layers and so on. The format
      * is: [input][hidden][output]
@@ -148,13 +158,18 @@ public class ANNModel {
      *
      * @return array list of ARRAYs.
      */
-    public ArrayList<Edge[]> getWeights() {
-        ArrayList<Edge[]> edges = new ArrayList<>();
+    public ArrayList<Double[]> getWeights() {
+        ArrayList<Double[]> edges = new ArrayList<>();
         for (int i = 0; i < myANN.getNumLayers(); i++) {
             Edges e = myANN.getEdges(i);
             Edge[][] edgeses = e.getEdges();
             for (int j = 0; j < edgeses.length; j++) {
-                edges.add(edgeses[j]);
+                Double[] weights = new Double[edgeses[j].length];
+                for (int k = 0; k < edgeses[j].length; k++) {
+                    weights[k] = edgeses[j][k].getWeight();
+                }
+
+                edges.add(weights);
             }
         }
 
@@ -170,16 +185,16 @@ public class ANNModel {
     public void changeActivationFunction(String actString) {
         ActivationStrategy as = null;
         switch (actString) {
-            case "LinearActivationStrategy":
+            case "Linear":
                 as = new LinearActivationStrategy();
                 break;
-            case "LogisticActivationStrategy":
+            case "Logistic":
                 as = new LinearActivationStrategy();
                 break;
-            case "ReLUActivationStrategy":
+            case "ReLU":
                 as = new ReLUActivationStrategy();
                 break;
-            case "SoftplusActivationStrategy":
+            case "Softplus":
                 as = new SoftplusActivationStrategy();
                 break;
         }
@@ -190,52 +205,21 @@ public class ANNModel {
     }
 
     /**
-     * Serializes the ANN object to a file. myANN is the object being
-     * serialized, and fileName is the .ser filename.
+     * Changes the learning rate of the current ANN.
      *
-     * @param myANN
-     * @param dirName the directory of name.
-     * @throws java.io.FileNotFoundException
-     * @see
-     * <a href="https://www.tutorialspoint.com/java/java_serialization.htm">https://www.tutorialspoint.com/java/java_serialization.htm</a>
+     * @param learningRate
      */
-    public static void serializeANN(ANN myANN, String dirName) throws FileNotFoundException, IOException {
-        //try {
-        dirName += ".ser";
-        FileOutputStream fileOut = new FileOutputStream(dirName);
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(myANN);
-        out.close();
-        fileOut.close();
-        System.out.printf("Serialized data is saved in " + dirName + "\n");
-
-        //} catch (IOException i) {
-        //}
+    public void changeLearningRate(double learningRate) {
+        ANN.learningRate = learningRate;
     }
 
     /**
-     * Deserializes a file. fileName is the name of the .ser file. Returns the
-     * ANN object that is deserialized.
+     * Changes the momentum of the current ANN.
      *
-     * @param fileName
-     * @return the deserialized ANN
-     * @throws java.io.FileNotFoundException
-     * @throws java.lang.ClassNotFoundException
-     * @see
-     * <a href="https://www.tutorialspoint.com/java/java_serialization.html">https://www.tutorialspoint.com/java/java_serialization.html</a>
-     *
+     * @param momentum
      */
-    public static ANN deserializeANN(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException {
-        ANN myANN = null;
-
-        FileInputStream fileIn;
-        fileIn = new FileInputStream(fileName);
-        try (ObjectInputStream in = new ObjectInputStream(fileIn)) {
-            myANN = (ANN) in.readObject();
-        }
-        fileIn.close();
-        return myANN;
-
+    public void changeMomentum(double momentum) {
+        ANN.momentum = momentum;
     }
 
 }
