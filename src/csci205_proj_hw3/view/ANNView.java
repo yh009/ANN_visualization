@@ -7,6 +7,7 @@ import csci205_proj_hw3.model.ANNModel;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -70,6 +71,12 @@ public class ANNView {
     private close closeWindow;
     private FileCtrl theCtrl;
     private ConfigCtrl configCtrl;
+    private VBox outputLayer;
+    private VBox hiddenLayer;
+    private VBox inputLayer;
+    private Group ANNGraph;
+    private Line[][] iToh;
+    private Line[][] hToo;
 
     public ANNView(ANNModel theModel) {
         this.theModel = theModel;
@@ -96,15 +103,16 @@ public class ANNView {
         topPane = new HBox(10);
         topPane.getChildren().addAll(fileBtn, configBtn, txtLR, inputLR, txtMo, inputMo, txtCombo, combo, exitBtn);
         topPane.setAlignment(Pos.CENTER);
-        ANNGraph = new HBox(200);
-        ANNGraph.setAlignment(Pos.CENTER);
-        inputLayer = new VBox(10);
-        inputLayer.setAlignment(Pos.CENTER);
-        hiddenLayer = new VBox(10);
-        hiddenLayer.setAlignment(Pos.CENTER);
-        outputLayer = new VBox(10);
-        outputLayer.setAlignment(Pos.CENTER);
-        ANNGraph.getChildren().addAll(inputLayer, hiddenLayer, outputLayer);
+        /*
+         * ANNGraph = new HBox(200); ANNGraph.setAlignment(Pos.CENTER);
+         * inputLayer = new VBox(10); inputLayer.setAlignment(Pos.CENTER);
+         * hiddenLayer = new VBox(10); hiddenLayer.setAlignment(Pos.CENTER);
+         * outputLayer = new VBox(10); outputLayer.setAlignment(Pos.CENTER);
+         *
+         * ANNGraph.getChildren().addAll(inputLayer, hiddenLayer, outputLayer);
+         */
+        ANNGraph = new Group();
+
         root.setCenter(ANNGraph);
 
         root.setPrefWidth(1500);
@@ -116,42 +124,94 @@ public class ANNView {
         configCtrl = new ConfigCtrl(theModel, this);
 
     }
-    private VBox outputLayer;
-    private VBox hiddenLayer;
-    private VBox inputLayer;
-    private HBox ANNGraph;
-    private Line[][] iToh;
-    private Line[][] hToo;
 
     public void genGraph() {
+
         ArrayList ANNInfo = theModel.getANNInfo();
-        this.inputLayer.getChildren().clear();
-        for (int i = 0; i < (Integer) ANNInfo.get(0); i++) {
-            this.inputLayer.getChildren().add(new Circle(50, Paint.valueOf("RED")));
-
+        /*
+         * this.inputLayer.getChildren().clear(); for (int i = 0; i < (Integer)
+         * ANNInfo.get(0); i++) { this.inputLayer.getChildren().add(new
+         * Circle(50, Paint.valueOf("RED")));
+         *
+         * }
+         * this.hiddenLayer.getChildren().clear(); for (int j = 0; j < (Integer)
+         * ANNInfo.get(1); j++) { this.hiddenLayer.getChildren().add(new
+         * Circle(50, Paint.valueOf("GREEN")));
+         *
+         * }
+         * this.outputLayer.getChildren().clear(); for (int k = 0; k < (Integer)
+         * ANNInfo.get(2); k++) { this.outputLayer.getChildren().add(new
+         * Circle(50, Paint.valueOf("BLUE")));
+         *
+         * }
+         */
+        ANNGraph.getChildren().clear();
+        ArrayList<Circle> circles = new ArrayList<>();
+        // add output layer
+        for (int i = 0; i < (int) ANNInfo.get(2); i++) {
+            Circle c = new Circle(50, Paint.valueOf("BLUE"));
+            circles.add(c);
+            c.setCenterX(1250);
+            c.setCenterY(900 / (((int) ANNInfo.get(2))) * (i + 1));
         }
-        this.hiddenLayer.getChildren().clear();
-        for (int j = 0; j < (Integer) ANNInfo.get(1); j++) {
-            this.hiddenLayer.getChildren().add(new Circle(50, Paint.valueOf("GREEN")));
 
+        // add hidden layer
+        for (int i = 0; i < (int) ANNInfo.get(1); i++) {
+            Circle c = new Circle(50, Paint.valueOf("GREEN"));
+            circles.add(c);
+            c.setCenterX(750);
+            c.setCenterY(900 / (((int) ANNInfo.get(1))) * (i + 1));
         }
-        this.outputLayer.getChildren().clear();
-        for (int k = 0; k < (Integer) ANNInfo.get(2); k++) {
-            this.outputLayer.getChildren().add(new Circle(50, Paint.valueOf("BLUE")));
 
+        // add input layer
+        for (int i = 0; i < (int) ANNInfo.get(0); i++) {
+            Circle c = new Circle(50, Paint.valueOf("RED"));
+            circles.add(c);
+            c.setCenterX(250);
+            c.setCenterY(900 / (((int) ANNInfo.get(0))) * (i + 1));
         }
-        this.genLine();
 
+        //this.genLine();
+        // draw lines
+        int numInputs = theModel.getANNInfo().get(0);
+
+        int numHidden = theModel.getANNInfo().get(1);
+
+        int numOutputs = theModel.getANNInfo().get(2);
+
+        ArrayList<Line> lineArray = new ArrayList<>();
+        for (int i = 0; i < numOutputs; i++) {
+            for (int j = 0; j < numHidden; j++) {
+                // add a line segment
+                //lineArray.add(drawLineFromTo((Circle) circles.get(i), (Circle) circles.get(numOutputs + j)));
+                ANNGraph.getChildren().add(drawLineFromTo(circles.get(i), circles.get(numOutputs + j)));
+            }
+        }
+
+        for (int i = 0; i < numHidden; i++) {
+            for (int j = 0; j < numInputs; j++) {
+                // add a line segment
+                //lineArray.add(drawLineFromTo((Circle) circles.get(numOutputs + i), (Circle) circles.get(numOutputs + +numOutputs + j)));
+                ANNGraph.getChildren().add(drawLineFromTo(circles.get(i), circles.get(numOutputs + j)));
+            }
+        }
+        // add the lines
+        //for (Line l : lineArray) {
+        //    ANNGraph.getChildren().add(l);
+        //}
+
+        for (Circle c : circles) {
+            ANNGraph.getChildren().add(c);
+        }
     }
 
     public void genLine() {
 
-        for (int i = 0; i < this.inputLayer.getChildren().size(); i++) {
-            for (int j = 0; j < this.hiddenLayer.getChildren().size(); j++) {
+    }
 
-            }
+    public Line drawLineFromTo(Circle a, Circle b) {
+        return new Line(a.getCenterX(), a.getCenterY(), b.getCenterY(), b.getCenterY());
 
-        }
     }
 
     public BorderPane getRoot() {
@@ -186,7 +246,7 @@ public class ANNView {
         return inputLayer;
     }
 
-    public HBox getANNGraph() {
+    public Group getANNGraph() {
         return ANNGraph;
     }
 

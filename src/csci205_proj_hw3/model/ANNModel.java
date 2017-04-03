@@ -56,13 +56,13 @@ public class ANNModel {
     private LabeledInstances data;
     private int indexPointer = 0;
 
+    public ANNModel() {
+
+    }
+
     public ANNModel(ANN myANN, LabeledInstances data) {
         this.myANN = myANN;
         this.data = data;
-    }
-
-    public ANNModel() {
-
     }
 
     /**
@@ -153,7 +153,7 @@ public class ANNModel {
 
     /**
      * Returns the weights as an array list of ARRAY of weights. The first index
-     * represent the first node in the input layer, and this moves down.
+     * represent the first node in the output layer, and this moves down.
      *
      * @return array list of ARRAYs.
      */
