@@ -39,9 +39,35 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import javafx.scene.paint.Color;
 import neuralnet.ANN;
 
 public class ANNUtil {
+
+    /**
+     * Maps a double to RGB color
+     *
+     * @param value
+     * @return
+     */
+    public static Color convertDoubleToRGBColor(double value) {
+        Color color = new Color(gaussianFunc(value, 0.1, -0.25), 0, gaussianFunc(value, 0.1, 0.25), 0.8);
+        return color;
+    }
+
+    /**
+     * Return a Gaussian curve.
+     *
+     * @param x input
+     * @param sigma the width
+     * @param translation the center of the curve.
+     * @return
+     */
+    public static double gaussianFunc(double x, double sigma, double translation) {
+
+        double num = Math.exp(-Math.pow(((x - translation) / sigma), 2));
+        return num;
+    }
 
     /**
      * Deserializes a file. fileName is the name of the .ser file. Returns the

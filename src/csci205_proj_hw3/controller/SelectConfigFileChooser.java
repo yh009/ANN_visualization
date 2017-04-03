@@ -2,6 +2,9 @@ package csci205_proj_hw3.controller;
 
 import csci205_proj_hw3.view.ANNFileView;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.FileChooser;
@@ -42,11 +45,11 @@ import javafx.stage.Stage;
  *
  * @author yh009
  */
-public class selectConfigFileChooser implements EventHandler<ActionEvent> {
+public class SelectConfigFileChooser implements EventHandler<ActionEvent> {
 
     ANNFileView fileView;
 
-    public selectConfigFileChooser(ANNFileView fileView) {
+    public SelectConfigFileChooser(ANNFileView fileView) {
         this.fileView = fileView;
         this.fileView.getSelectConfig().setOnAction(this);
 
@@ -60,7 +63,11 @@ public class selectConfigFileChooser implements EventHandler<ActionEvent> {
         fileChooser.setInitialDirectory(workingDirectory);
 
         File configFile = fileChooser.showOpenDialog(new Stage());
-        fileView.fileSelected(configFile);
+        try {
+            fileView.fileSelected(configFile);
+        } catch (IOException ex) {
+            Logger.getLogger(SelectConfigFileChooser.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

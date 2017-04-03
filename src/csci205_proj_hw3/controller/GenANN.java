@@ -3,15 +3,10 @@ package csci205_proj_hw3.controller;
 import csci205_proj_hw3.model.ANNModel;
 import csci205_proj_hw3.view.ANNConfigView;
 import csci205_proj_hw3.view.ANNView;
-import java.util.ArrayList;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import neuralnet.ANN;
-import neuralnet.data.LabeledInstances;
 
 /*
  * *****************************************
@@ -53,7 +48,6 @@ public class GenANN implements EventHandler<ActionEvent> {
     private ANNModel theModel;
     private ANNView theView;
     private ANNConfigView configView;
-    private RunEpochTask theTask;
 
     public GenANN(ANNModel theModel, ANNConfigView configView, ANNView theView) {
         this.theModel = theModel;
@@ -84,54 +78,6 @@ public class GenANN implements EventHandler<ActionEvent> {
 
             alert.show();
         }
-    }
-
-    class RunEpochTask extends Task<Double> {
-
-        private final int epoch;
-        private final ANN ann;
-        private final LabeledInstances trainData;
-
-        /**
-         *
-         * @param ann ANN model that produces the computation.
-         * @param numIterations Number of iterations needed
-         */
-        public RunEpochTask(ANN ann, int numIterations, LabeledInstances trainData) {
-            this.ann = ann;
-            this.epoch = numIterations;
-            this.trainData = trainData;
-        }
-
-        @Override
-        protected Double call() throws Exception {
-            double totalError = 0;
-            for (int i = 0; i < epoch; i++) {
-                ann.learn(trainData, true, 1);
-                ArrayList<ArrayList<Double>> output = ann.classifyInstances(trainData);
-                if (isCancelled()) {
-                    updateMessage("Cancelled");
-                    break;
-
-                }
-                totalError = ANN.computeOutputError(trainData, output);
-                updateValue(totalError);
-                updateMessage(String.format("%d epochs", i));
-                updateProgress(i, epoch);
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        // update GUI. TODO
-                        System.out.println("test");
-                    }
-
-                });
-
-                Thread.sleep(1);
-            }
-            return totalError;
-        }
-
     }
 
 }

@@ -42,18 +42,18 @@ import javafx.stage.Stage;
  *
  * @author mac
  */
-public class close implements EventHandler<ActionEvent> {
+public class Close implements EventHandler<ActionEvent> {
 
     private ANNFileView fileView;
     private ANNView theView;
 
-    public close(ANNFileView fileView) {
+    public Close(ANNFileView fileView) {
         this.fileView = fileView;
         fileView.getExit().setOnAction(this);
 
     }
 
-    public close(ANNView theView) {
+    public Close(ANNView theView) {
         this.theView = theView;
         theView.getExitBtn().setOnAction(this);
     }

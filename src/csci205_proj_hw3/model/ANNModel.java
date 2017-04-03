@@ -163,20 +163,19 @@ public class ANNModel {
         int numHidden = dim.get(1);
         int numOutput = dim.get(2);
         ArrayList<Double[]> edges = new ArrayList<>();
-        Edges e = myANN.getEdges(0);
-        for (int i = 0; i < numHidden; i++) {
-            Double[] weights = new Double[numInput];
-            for (int j = 0; j < numInput; j++) {
+        Edges e = myANN.getEdges(1);
+        for (int i = 0; i < numOutput; i++) {
+            Double[] weights = new Double[numHidden];
+            for (int j = 0; j < numHidden; j++) {
                 Double weight = e.getEdge(i, j).getWeight();
                 weights[j] = weight;
             }
             edges.add(weights);
         }
-
-        e = myANN.getEdges(1);
-        for (int i = 0; i < numOutput; i++) {
-            Double[] weights = new Double[numHidden];
-            for (int j = 0; j < numHidden; j++) {
+        e = myANN.getEdges(0);
+        for (int i = 0; i < numHidden; i++) {
+            Double[] weights = new Double[numInput];
+            for (int j = 0; j < numInput; j++) {
                 Double weight = e.getEdge(i, j).getWeight();
                 weights[j] = weight;
             }
@@ -230,6 +229,14 @@ public class ANNModel {
      */
     public void changeMomentum(double momentum) {
         ANN.momentum = momentum;
+    }
+
+    public LabeledInstances getData() {
+        return data;
+    }
+
+    public ANN getMyANN() {
+        return myANN;
     }
 
 }

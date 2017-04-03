@@ -47,12 +47,12 @@ import javafx.stage.Stage;
  *
  * @author mac
  */
-public class saveConfigFileChooser implements EventHandler<ActionEvent> {
+public class SaveConfigFileChooser implements EventHandler<ActionEvent> {
 
     ANNFileView fileView;
     ANNModel theModel;
 
-    public saveConfigFileChooser(ANNFileView fileView, ANNModel theModel) {
+    public SaveConfigFileChooser(ANNFileView fileView, ANNModel theModel) {
         this.fileView = fileView;
         this.theModel = theModel;
         fileView.getSaveConfig().setOnAction(this);
@@ -72,7 +72,7 @@ public class saveConfigFileChooser implements EventHandler<ActionEvent> {
             try {
                 theModel.saveANN(dest.getAbsolutePath());
             } catch (IOException ex) {
-                Logger.getLogger(saveConfigFileChooser.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SaveConfigFileChooser.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {
