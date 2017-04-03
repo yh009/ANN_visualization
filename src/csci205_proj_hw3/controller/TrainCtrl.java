@@ -61,6 +61,9 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
         theView.getNumEpoch().textProperty().bind(theTask.valueProperty().asString());
         theView.getError().textProperty().bind(theTask.messageProperty());
 
+        Thread th = new Thread(theTask);
+        th.setDaemon(true);
+        th.start();
     }
 
     class RunEpochTask extends Task<Double> {

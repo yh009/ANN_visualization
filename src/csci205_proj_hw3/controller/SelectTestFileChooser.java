@@ -3,9 +3,6 @@ package csci205_proj_hw3.controller;
 import csci205_proj_hw3.model.ANNModel;
 import csci205_proj_hw3.view.ANNFileView;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.FileChooser;
@@ -65,13 +62,9 @@ public class SelectTestFileChooser implements EventHandler<ActionEvent> {
         fileChooser.setInitialDirectory(workingDirectory);
 
         File configFile = fileChooser.showOpenDialog(new Stage());
-        try {
-            theModel.openTrainData(configFile.getAbsolutePath());
+        theModel.openTrainData(configFile.getAbsolutePath());
 
-            //fileView.fileSelected(configFile);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SelectTestFileChooser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //fileView.fileSelected(configFile);
     }
 
 }

@@ -82,11 +82,13 @@ public class ANNModel {
      * @param file
      * @throws java.io.IOException
      */
-    public void readAnn(File file) throws IOException {
+    public void readAnn(File file) {
         try {
             myANN = ANNUtil.deserializeANN(file.getAbsolutePath());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ANNModel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            System.out.println("Cannot parse serilization.");
         }
     }
 
@@ -107,9 +109,13 @@ public class ANNModel {
      * @param dir The absolute directory of the file
      * @throws FileNotFoundException
      */
-    public void openTrainData(String dir) throws FileNotFoundException {
-        data = new LabeledInstances(dir,
-                true, 2);
+    public void openTrainData(String dir) {
+        try {
+            data = new LabeledInstances(dir,
+                    true, 2);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ANNModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
