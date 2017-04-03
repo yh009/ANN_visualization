@@ -80,6 +80,7 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
                     theTask = new RunEpochTask(theModel.getMyANN(), epoch, theModel.getData());
                     theView.getNumEpoch().textProperty().bind(theTask.valueProperty().asString());
                     theView.getError().textProperty().bind(theTask.messageProperty());
+
                 } catch (NumberFormatException numberFormatException) {
 
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -90,6 +91,9 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
                     alert.show();
 
                 }
+                Thread th = new Thread(theTask);
+                th.setDaemon(true);
+                th.start();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Number of Epoch unspecified.");
@@ -100,19 +104,6 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
             }
         }
 
-        /*
-         * if (theModel.getData() == null) { Alert alert = new
-         * Alert(Alert.AlertType.ERROR); alert.setTitle("CSV unspecified.");
-         * alert.setHeaderText("CSV unspecified."); alert.setContentText("please
-         * select your train/classify file."); alert.show(); } else { int epoch
-         * = Integer.parseInt(theView.getTrainField().getText()); theTask = new
-         * RunEpochTask(theModel.getMyANN(), epoch, theModel.getData());
-         * theView.getNumEpoch().textProperty().bind(theTask.valueProperty().asString());
-         * theView.getError().textProperty().bind(theTask.messageProperty());
-         *
-         * Thread th = new Thread(theTask); th.setDaemon(true); th.start();
-         */
-        //}
     }
 
     class RunEpochTask extends Task<Double> {

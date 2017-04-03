@@ -112,6 +112,8 @@ public class ANNView {
         combo = new ComboBox<>();
         combo.getItems().setAll("Linear", "Logistic", "ReLU", "Softplus");
         combo.getSelectionModel().select(0);
+        VBox inputs = new VBox(50);
+        VBox outputs = new VBox(50);
 
         root = new BorderPane();
         topPane = new HBox(10);
