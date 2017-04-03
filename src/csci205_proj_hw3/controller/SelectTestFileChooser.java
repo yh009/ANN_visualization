@@ -54,6 +54,11 @@ public class SelectTestFileChooser implements EventHandler<ActionEvent> {
         fileView.getSelectData().setOnAction(this);
     }
 
+    /**
+     * Handler for choosing the CSV file.
+     *
+     * @param event
+     */
     @Override
     public void handle(ActionEvent event) {
         File workingDirectory = new File(System.getProperty("user.dir"));

@@ -34,6 +34,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import neuralnet.ANN;
 import neuralnet.data.LabeledInstances;
 
@@ -56,14 +57,23 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
-        int epoch = Integer.parseInt(theView.getTrainField().getText());
-        theTask = new RunEpochTask(theModel.getMyANN(), epoch, theModel.getData());
-        theView.getNumEpoch().textProperty().bind(theTask.valueProperty().asString());
-        theView.getError().textProperty().bind(theTask.messageProperty());
 
-        Thread th = new Thread(theTask);
-        th.setDaemon(true);
-        th.start();
+        if (theModel.getData() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("CSV unspecified.");
+            alert.setHeaderText("CSV unspecified.");
+            alert.setContentText("please select your train/classify file.");
+            alert.show();
+        } else {
+            int epoch = Integer.parseInt(theView.getTrainField().getText());
+            theTask = new RunEpochTask(theModel.getMyANN(), epoch, theModel.getData());
+            theView.getNumEpoch().textProperty().bind(theTask.valueProperty().asString());
+            theView.getError().textProperty().bind(theTask.messageProperty());
+
+            Thread th = new Thread(theTask);
+            th.setDaemon(true);
+            th.start();
+        }
     }
 
     class RunEpochTask extends Task<Double> {
@@ -103,6 +113,7 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
                     public void run() {
                         // update GUI. TODO
                         System.out.println("test");
+                        theView.genGraph();
                     }
 
                 });

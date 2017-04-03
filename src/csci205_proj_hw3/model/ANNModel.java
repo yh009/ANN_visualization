@@ -53,7 +53,7 @@ import neuralnet.strategy.SoftplusActivationStrategy;
 public class ANNModel {
 
     private ANN myANN;
-    private LabeledInstances data;
+    private LabeledInstances data = null;
     private int indexPointer = 0;
 
     public ANNModel() {
