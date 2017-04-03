@@ -65,6 +65,8 @@ public class GenANN implements EventHandler<ActionEvent> {
             int numOutput = Integer.parseInt(configView.getNumOutput().getText());
             theModel.readANNConfig(numInput, numHidden, numOutput);
             theView.genGraph();
+            //System.out.println(theModel.getANNInfo().get(0));
+            theView.generateLabels(theModel.getANNInfo());
 
             //TODO generate graph
             Stage stage = (Stage) configView.getGenANN().getScene().getWindow();

@@ -12,6 +12,7 @@ import neuralnet.Edges;
 import neuralnet.data.LabeledInstances;
 import neuralnet.strategy.ActivationStrategy;
 import neuralnet.strategy.LinearActivationStrategy;
+import neuralnet.strategy.LogisticActivationStrategy;
 import neuralnet.strategy.ReLUActivationStrategy;
 import neuralnet.strategy.SoftplusActivationStrategy;
 
@@ -204,7 +205,7 @@ public class ANNModel {
                 as = new LinearActivationStrategy();
                 break;
             case "Logistic":
-                as = new LinearActivationStrategy();
+                as = new LogisticActivationStrategy();
                 break;
             case "ReLU":
                 as = new ReLUActivationStrategy();

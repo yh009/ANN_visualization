@@ -111,9 +111,17 @@ public class ANNView {
         //txtCombo.textProperty().bind(combo.getSelectionModel().selectedItemProperty());
         combo = new ComboBox<>();
         combo.getItems().setAll("Linear", "Logistic", "ReLU", "Softplus");
-        combo.getSelectionModel().select(0);
-        VBox inputs = new VBox(50);
-        VBox outputs = new VBox(50);
+        combo.getSelectionModel().selectFirst();
+
+        inputs = new VBox(10);
+        inputs.setAlignment(Pos.CENTER);
+
+        outputs = new VBox(10);
+        outputs.setAlignment(Pos.CENTER);
+        //inputLabels = new ArrayList<>();
+        //outputLabels = new ArrayList<>();
+        //inputs.getChildren().addAll(inputLabels);
+        //outputs.getChildren().addAll(outputLabels);
 
         root = new BorderPane();
         topPane = new HBox(10);
@@ -142,12 +150,18 @@ public class ANNView {
         root.setPadding(new Insets(10, 15, 15, 15));
         root.setTop(topPane);
         root.setBottom(downPane);
+        root.setLeft(inputs);
+        root.setRight(outputs);
         closeWindow = new Close(this);
         theCtrl = new FileCtrl(theModel, this);
         configCtrl = new ConfigCtrl(theModel, this);
         trainCtrl = new TrainCtrl(theModel, this);
 
     }
+    private ArrayList<Label> outputLabels;
+    private ArrayList<Label> inputLabels;
+    private VBox outputs;
+    private VBox inputs;
 
     public void genGraph() {
 
@@ -232,6 +246,20 @@ public class ANNView {
         }
     }
 
+    public void generateLabels(ArrayList ANNInfo) {
+        this.inputs.getChildren().clear();
+        this.outputs.getChildren().clear();
+        for (int i = 0; i < (int) ANNInfo.get(0); i++) {
+            this.inputs.getChildren().add(new Label("Empty"));
+            //this.inputLabels.add(new Label("Empty"));
+
+        }
+        for (int j = 0; j < (int) ANNInfo.get(2); j++) {
+            this.outputs.getChildren().add(new Label("Empty"));
+            //this.outputLabels.add(new Label("Empty"));
+        }
+    }
+
     public ArrayList<Circle> generateCircles(ArrayList ANNInfo) {
         ArrayList<Circle> circles = new ArrayList<>();
         for (int i = 0; i < (int) ANNInfo.get(2); i++) {
@@ -239,7 +267,7 @@ public class ANNView {
             circles.add(c);
             c.setCenterX(1250);
             c.setCenterY(900 / (((int) ANNInfo.get(2)) + 1) * (i + 1));
-            System.out.println((900 / (((int) ANNInfo.get(2)) + 1) * (i + 1)));
+            //.out.println((900 / (((int) ANNInfo.get(2)) + 1) * (i + 1)));
 
         }
         // add hidden layer
@@ -337,6 +365,14 @@ public class ANNView {
 
     public TextField getInputLR() {
         return inputLR;
+    }
+
+    public ArrayList<Label> getOutputLabels() {
+        return outputLabels;
+    }
+
+    public ArrayList<Label> getInputLabels() {
+        return inputLabels;
     }
 
 }
