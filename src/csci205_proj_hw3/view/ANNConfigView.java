@@ -87,7 +87,7 @@ public class ANNConfigView {
         three.getChildren().addAll(new Label("# output node: "), numOutput);
 
         root.getChildren().addAll(one, two, three, genANN);
-        theModel = theModel;
+        //theModel = theModel;
         createANN = new GenANN(theModel, this, theView);
 
     }

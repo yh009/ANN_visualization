@@ -46,12 +46,12 @@ import javafx.stage.Stage;
  *
  * @author mac
  */
-public class selectTestFileChooser implements EventHandler<ActionEvent> {
+public class SelectTestFileChooser implements EventHandler<ActionEvent> {
 
     ANNFileView fileView;
     ANNModel theModel;
 
-    public selectTestFileChooser(ANNFileView fileView, ANNModel theModel) {
+    public SelectTestFileChooser(ANNFileView fileView, ANNModel theModel) {
         this.fileView = fileView;
         this.theModel = theModel;
         fileView.getSelectData().setOnAction(this);
@@ -70,7 +70,7 @@ public class selectTestFileChooser implements EventHandler<ActionEvent> {
 
             //fileView.fileSelected(configFile);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(selectTestFileChooser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SelectTestFileChooser.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

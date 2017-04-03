@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import neuralnet.ANN;
-import neuralnet.Edge;
 import neuralnet.Edges;
 import neuralnet.data.LabeledInstances;
 import neuralnet.strategy.ActivationStrategy;
@@ -57,13 +56,13 @@ public class ANNModel {
     private LabeledInstances data;
     private int indexPointer = 0;
 
+    public ANNModel() {
+
+    }
+
     public ANNModel(ANN myANN, LabeledInstances data) {
         this.myANN = myANN;
         this.data = data;
-    }
-
-    public ANNModel() {
-
     }
 
     /**
@@ -154,23 +153,33 @@ public class ANNModel {
 
     /**
      * Returns the weights as an array list of ARRAY of weights. The first index
-     * represent the first node in the input layer, and this moves down.
+     * represent the first node in the output layer, and this moves down.
      *
      * @return array list of ARRAYs.
      */
     public ArrayList<Double[]> getWeights() {
+        ArrayList<Integer> dim = myANN.getANNLayerDim();
+        int numInput = dim.get(0);
+        int numHidden = dim.get(1);
+        int numOutput = dim.get(2);
         ArrayList<Double[]> edges = new ArrayList<>();
-        for (int i = 0; i < myANN.getNumLayers(); i++) {
-            Edges e = myANN.getEdges(i);
-            Edge[][] edgeses = e.getEdges();
-            for (int j = 0; j < edgeses.length; j++) {
-                Double[] weights = new Double[edgeses[j].length];
-                for (int k = 0; k < edgeses[j].length; k++) {
-                    weights[k] = edgeses[j][k].getWeight();
-                }
-
-                edges.add(weights);
+        Edges e = myANN.getEdges(1);
+        for (int i = 0; i < numOutput; i++) {
+            Double[] weights = new Double[numHidden];
+            for (int j = 0; j < numHidden; j++) {
+                Double weight = e.getEdge(i, j).getWeight();
+                weights[j] = weight;
             }
+            edges.add(weights);
+        }
+        e = myANN.getEdges(0);
+        for (int i = 0; i < numHidden; i++) {
+            Double[] weights = new Double[numInput];
+            for (int j = 0; j < numInput; j++) {
+                Double weight = e.getEdge(i, j).getWeight();
+                weights[j] = weight;
+            }
+            edges.add(weights);
         }
 
         return edges;
@@ -220,6 +229,14 @@ public class ANNModel {
      */
     public void changeMomentum(double momentum) {
         ANN.momentum = momentum;
+    }
+
+    public LabeledInstances getData() {
+        return data;
+    }
+
+    public ANN getMyANN() {
+        return myANN;
     }
 
 }

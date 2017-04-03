@@ -1,9 +1,9 @@
 package csci205_proj_hw3.view;
 
-import csci205_proj_hw3.controller.close;
-import csci205_proj_hw3.controller.saveConfigFileChooser;
-import csci205_proj_hw3.controller.selectConfigFileChooser;
-import csci205_proj_hw3.controller.selectTestFileChooser;
+import csci205_proj_hw3.controller.Close;
+import csci205_proj_hw3.controller.SaveConfigFileChooser;
+import csci205_proj_hw3.controller.SelectConfigFileChooser;
+import csci205_proj_hw3.controller.SelectTestFileChooser;
 import csci205_proj_hw3.model.ANNModel;
 import java.io.File;
 import java.io.IOException;
@@ -53,12 +53,12 @@ public class ANNFileView {
     private Button selectData;
     private Button exit;
     private FlowPane root;
-    private selectConfigFileChooser selectConfigFC;
-    private saveConfigFileChooser saveConfigFC;
-    private selectTestFileChooser testFC;
+    private SelectConfigFileChooser selectConfigFC;
+    private SaveConfigFileChooser saveConfigFC;
+    private SelectTestFileChooser testFC;
     //private File selectedFile;
     private File selectedData;
-    private close closeWindow;
+    private Close closeWindow;
     private ANNModel theModel;
     private ANNView theView;
 
@@ -76,10 +76,10 @@ public class ANNFileView {
         //root.setPrefWidth(500);
         root.getChildren().addAll(selectConfig, saveConfig, selectData, exit);
         root.setHgap(30);
-        selectConfigFC = new selectConfigFileChooser(this);
-        saveConfigFC = new saveConfigFileChooser(this, theModel);
-        testFC = new selectTestFileChooser(this, theModel);
-        closeWindow = new close(this);
+        selectConfigFC = new SelectConfigFileChooser(this);
+        saveConfigFC = new SaveConfigFileChooser(this, theModel);
+        testFC = new SelectTestFileChooser(this, theModel);
+        closeWindow = new Close(this);
         this.theModel = theModel;
         this.theView = theView;
         //root.setAlignment(Pos.CENTER);
