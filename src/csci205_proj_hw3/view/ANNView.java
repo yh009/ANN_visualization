@@ -86,6 +86,7 @@ public class ANNView {
     private Line[][] hToo;
     private Text numEpoch;
     private TrainCtrl trainCtrl;
+    private Button btnStop;
 
     public ANNView(ANNModel theModel) {
         this.theModel = theModel;
@@ -95,7 +96,7 @@ public class ANNView {
         configBtn = new Button("Config");
 
         exitBtn = new Button("Exit");
-
+        btnStop = new Button("Stop");
         error = new Text("Error: ???");
         numEpoch = new Text(String.format("Now at %d epoch", 0));
         trainButton = new Button("Train");
@@ -115,7 +116,7 @@ public class ANNView {
         topPane = new HBox(10);
         trainField = new TextField();
         downPane = new HBox(10);
-        downPane.getChildren().addAll(trainButton, trainField, error, numEpoch);
+        downPane.getChildren().addAll(trainButton, trainField, btnStop, error, numEpoch);
         downPane.setAlignment(Pos.CENTER);
         topPane.getChildren().addAll(fileBtn, configBtn, txtLR, inputLR, txtMo, inputMo, txtCombo, combo, exitBtn);
         topPane.setAlignment(Pos.CENTER);
@@ -186,6 +187,7 @@ public class ANNView {
 
                 final Double weight = weights.get(weightsIndex)[j];
                 line.setStroke(ANNUtil.convertDoubleToRGBColor(weight));
+                line.setStrokeWidth((theModel.getWeights().get(weightsIndex)[j]) * 100);
                 // add a line segment
                 lineArray.add(line);
 
@@ -200,7 +202,7 @@ public class ANNView {
                 lineArray.add(line);
 
                 line.setStroke(ANNUtil.convertDoubleToRGBColor(theModel.getWeights().get(weightsIndex)[j]));
-
+                line.setStrokeWidth((theModel.getWeights().get(weightsIndex)[j]) * 100);
             }
             weightsIndex++;
         }

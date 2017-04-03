@@ -51,7 +51,7 @@ public class ANNUtil {
      * @return
      */
     public static Color convertDoubleToRGBColor(double value) {
-        Color color = new Color(gaussianFunc(value, 0.1, -0.25), 0, gaussianFunc(value, 0.1, 0.25), 0.8);
+        Color color = new Color(gaussianFunc(value, 0.1, -0.1), 0, gaussianFunc(value, 0.1, 0.1), 0.8);
         return color;
     }
 

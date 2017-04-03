@@ -31,6 +31,7 @@ import csci205_proj_hw3.model.ANNModel;
 import csci205_proj_hw3.view.ANNView;
 import java.util.ArrayList;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -67,7 +68,8 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
         } else {
             int epoch = Integer.parseInt(theView.getTrainField().getText());
             theTask = new RunEpochTask(theModel.getMyANN(), epoch, theModel.getData());
-            theView.getNumEpoch().textProperty().bind(theTask.valueProperty().asString());
+            theView.getNumEpoch().textProperty().bind(
+                    Bindings.format("%4.3f", theTask.valueProperty()));
             theView.getError().textProperty().bind(theTask.messageProperty());
 
             Thread th = new Thread(theTask);
@@ -106,7 +108,7 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
                 }
                 totalError = ANN.computeOutputError(trainData, output);
                 updateValue(totalError);
-                updateMessage(String.format("%d epochs", i));
+                updateMessage(String.format("%7d epochs", i));
                 updateProgress(i, epoch);
                 Platform.runLater(new Runnable() {
                     @Override
