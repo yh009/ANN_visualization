@@ -90,6 +90,13 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
                     alert.show();
 
                 }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Number of Epoch unspecified.");
+                alert.setHeaderText("Number of Epoch unspecified.");
+                alert.setContentText("please Enter an integer value as number of Epoch to be ran!");
+                alert.show();
+
             }
         }
 

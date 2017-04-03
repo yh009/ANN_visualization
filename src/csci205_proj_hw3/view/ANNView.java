@@ -73,6 +73,7 @@ public class ANNView {
     private TextField inputLR;
     private Label txtLR;
     private Label txtCombo;
+    private Label txtTrain;
     private ComboBox<String> combo;
     private Close closeWindow;
     private FileCtrl theCtrl;
@@ -103,6 +104,7 @@ public class ANNView {
         inputLR = new TextField();
         inputLR.setPrefColumnCount(5);
         txtMo = new Label("Momentum:");
+        txtTrain = new Label("Number of Epoch:");
         inputMo = new TextField();
         inputMo.setPrefColumnCount(5);
         txtCombo = new Label("Activation Strategy:");
@@ -115,7 +117,7 @@ public class ANNView {
         topPane = new HBox(10);
         trainField = new TextField();
         downPane = new HBox(10);
-        downPane.getChildren().addAll(trainButton, trainField, error, numEpoch);
+        downPane.getChildren().addAll(trainButton, txtTrain, trainField, error, numEpoch);
         downPane.setAlignment(Pos.CENTER);
         topPane.getChildren().addAll(fileBtn, configBtn, txtLR, inputLR, txtMo, inputMo, txtCombo, combo, exitBtn);
         topPane.setAlignment(Pos.CENTER);
