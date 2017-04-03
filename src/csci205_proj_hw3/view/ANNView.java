@@ -73,6 +73,7 @@ public class ANNView {
     private TextField inputLR;
     private Label txtLR;
     private Label txtCombo;
+    private Label txtTrain;
     private ComboBox<String> combo;
     private Close closeWindow;
     private FileCtrl theCtrl;
@@ -104,6 +105,7 @@ public class ANNView {
         inputLR = new TextField();
         inputLR.setPrefColumnCount(5);
         txtMo = new Label("Momentum:");
+        txtTrain = new Label("Number of Epoch:");
         inputMo = new TextField();
         inputMo.setPrefColumnCount(5);
         txtCombo = new Label("Activation Strategy:");
@@ -111,12 +113,14 @@ public class ANNView {
         combo = new ComboBox<>();
         combo.getItems().setAll("Linear", "Logistic", "ReLU", "Softplus");
         combo.getSelectionModel().select(0);
+        VBox inputs = new VBox(50);
+        VBox outputs = new VBox(50);
 
         root = new BorderPane();
         topPane = new HBox(10);
         trainField = new TextField();
         downPane = new HBox(10);
-        downPane.getChildren().addAll(trainButton, trainField, btnStop, error, numEpoch);
+        downPane.getChildren().addAll(trainButton, txtTrain, trainField, error, numEpoch);
         downPane.setAlignment(Pos.CENTER);
         topPane.getChildren().addAll(fileBtn, configBtn, txtLR, inputLR, txtMo, inputMo, txtCombo, combo, exitBtn);
         topPane.setAlignment(Pos.CENTER);
@@ -206,6 +210,7 @@ public class ANNView {
             }
             weightsIndex++;
         }
+
         // draw the lines
         for (Line l : lineArray) {
             l.setStrokeWidth(10);
@@ -249,6 +254,21 @@ public class ANNView {
         return l;
     }
 
+    /**
+     * Helper function for align the lines
+     *
+     * @param line - the line object to be aligned
+     * @param r1 - from node
+     * @param r2 - to node
+     */
+    /*
+     * private void updateLinePosition(Line line, Circle r1, Circle r2) {
+     * Point2D p1 = r1.localToScene(r1.getCenterX(), r1.getCenterY()); //p1 =
+     * line.sceneToLocal(p1); Point2D p2 = r2.localToScene(r2.getCenterX(),
+     * r2.getCenterY()); //p2 = line.sceneToLocal(p2);
+     * line.setStartX(p1.getX()); line.setStartY(p1.getY());
+     * line.setEndX(p2.getX()); line.setEndY(p2.getY()); }
+     */
     public BorderPane getRoot() {
         return root;
     }
@@ -299,6 +319,14 @@ public class ANNView {
 
     public Button getTrainButton() {
         return trainButton;
+    }
+
+    public TextField getInputMo() {
+        return inputMo;
+    }
+
+    public TextField getInputLR() {
+        return inputLR;
     }
 
 }
