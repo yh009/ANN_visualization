@@ -327,16 +327,12 @@ public class ANNView {
         return trainButton;
     }
 
-    public Label getTxtMo() {
-        return txtMo;
+    public TextField getInputMo() {
+        return inputMo;
     }
 
-    public Label getTxtLR() {
-        return txtLR;
-    }
-
-    public Label getTxtCombo() {
-        return txtCombo;
+    public TextField getInputLR() {
+        return inputLR;
     }
 
 }

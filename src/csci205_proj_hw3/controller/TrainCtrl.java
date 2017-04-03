@@ -57,62 +57,55 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
+
         int epoch;
-        if (theView.getTrainField().getText() != "") {
-            try {
-                epoch = Integer.parseInt(theView.getTrainField().getText());
-                if (theView.getTxtLR().getText() != "") {
-                    theModel.changeLearningRate(Integer.parseInt(theView.getTxtLR().getText()));
+        if (theModel.getData() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("CSV unspecified.");
+            alert.setHeaderText("CSV unspecified.");
+            alert.setContentText("please select your train/classify file.");
+            alert.show();
+        } else {
+            if (theView.getTrainField().getText().trim().isEmpty() == false) {
+                try {
+                    epoch = Integer.parseInt(theView.getTrainField().getText());
+                    if (theView.getInputLR().getText().trim().isEmpty() == false) {
+                        theModel.changeLearningRate(Double.parseDouble(theView.getInputLR().getText()));
+                    }
+                    if (theView.getInputMo().getText().trim().isEmpty() == false) {
+                        theModel.changeMomentum(Double.parseDouble(theView.getInputMo().getText()));
+                    }
+                    theModel.changeActivationFunction(theView.getCombo().getValue());
+
+                    theTask = new RunEpochTask(theModel.getMyANN(), epoch, theModel.getData());
+                    theView.getNumEpoch().textProperty().bind(theTask.valueProperty().asString());
+                    theView.getError().textProperty().bind(theTask.messageProperty());
+                } catch (NumberFormatException numberFormatException) {
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Incorrect input!");
+                    alert.setHeaderText("Incorrect input specified!");
+                    alert.setContentText("Please type integer in # epoch and doubles in Learning rate and Momentum!");
+
+                    alert.show();
+
                 }
-                if (theView.getTxtMo().getText() != "") {
-                    theModel.changeMomentum(Integer.parseInt(theView.getTxtMo().getText()));
-                }
-                theModel.changeActivationFunction(theView.getTxtCombo().getText());
-
-                theTask = new RunEpochTask(theModel.getMyANN(), epoch, theModel.getData());
-                theView.getNumEpoch().textProperty().bind(theTask.valueProperty().asString());
-                theView.getError().textProperty().bind(theTask.messageProperty());
-            } catch (NumberFormatException numberFormatException) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Incorrect input!");
-                alert.setHeaderText("Incorrect input specified!");
-                alert.setContentText("Please type integer in the # of epoch!");
-
-                alert.show();
-
             }
-            /*
-             * if (theView.getTxtLR().getText() != "") { try {
-             * theModel.changeLearningRate(Integer.parseInt(theView.getTxtLR().getText()));
-             * } catch (NumberFormatException numberFormatException) { Alert
-             * alert = new Alert(Alert.AlertType.ERROR);
-             * alert.setTitle("Incorrect input!");
-             * alert.setHeaderText("Incorrect input specified!");
-             * alert.setContentText("Please type integer in the Learning rate
-             * field!");
-             *
-             * alert.show();
-             *
-             * }
-             * }
-             * if (theView.getTxtMo().getText() != "") { try {
-             * theModel.changeMomentum(Integer.parseInt(theView.getTxtMo().getText()));
-             * } catch (NumberFormatException numberFormatException) { Alert
-             * alert = new Alert(Alert.AlertType.ERROR);
-             * alert.setTitle("Incorrect input!");
-             * alert.setHeaderText("Incorrect input specified!");
-             * alert.setContentText("Please type integer in the Momentum
-             * field!");
-             *
-             * alert.show();
-             *
-             * }
-             * }
-             *
-             */
-
         }
 
+        /*
+         * if (theModel.getData() == null) { Alert alert = new
+         * Alert(Alert.AlertType.ERROR); alert.setTitle("CSV unspecified.");
+         * alert.setHeaderText("CSV unspecified."); alert.setContentText("please
+         * select your train/classify file."); alert.show(); } else { int epoch
+         * = Integer.parseInt(theView.getTrainField().getText()); theTask = new
+         * RunEpochTask(theModel.getMyANN(), epoch, theModel.getData());
+         * theView.getNumEpoch().textProperty().bind(theTask.valueProperty().asString());
+         * theView.getError().textProperty().bind(theTask.messageProperty());
+         *
+         * Thread th = new Thread(theTask); th.setDaemon(true); th.start();
+         */
+        //}
     }
 
     class RunEpochTask extends Task<Double> {
@@ -152,6 +145,7 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
                     public void run() {
                         // update GUI. TODO
                         System.out.println("test");
+                        theView.genGraph();
                     }
 
                 });
