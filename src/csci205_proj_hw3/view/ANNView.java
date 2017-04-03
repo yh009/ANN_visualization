@@ -1,8 +1,10 @@
 package csci205_proj_hw3.view;
 
+import csci205_proj_hw3.controller.ClassifyCtrl;
 import csci205_proj_hw3.controller.Close;
 import csci205_proj_hw3.controller.ConfigCtrl;
 import csci205_proj_hw3.controller.FileCtrl;
+import csci205_proj_hw3.controller.StopCtrl;
 import csci205_proj_hw3.controller.TrainCtrl;
 import csci205_proj_hw3.model.ANNModel;
 import csci205_proj_hw3.utility.ANNUtil;
@@ -78,6 +80,7 @@ public class ANNView {
     private Close closeWindow;
     private FileCtrl theCtrl;
     private ConfigCtrl configCtrl;
+    private ClassifyCtrl classifyCtrl;
     private VBox outputLayer;
     private VBox hiddenLayer;
     private VBox inputLayer;
@@ -87,7 +90,9 @@ public class ANNView {
     private Line[][] hToo;
     private Text numEpoch;
     private TrainCtrl trainCtrl;
+    private StopCtrl stopCtrl;
     private Button btnStop;
+    private Button btnClassify;
 
     public ANNView(ANNModel theModel) {
         this.theModel = theModel;
@@ -109,6 +114,7 @@ public class ANNView {
         inputMo = new TextField();
         inputMo.setPrefColumnCount(5);
         txtCombo = new Label("Activation Strategy:");
+        btnClassify = new Button("Classify");
         //txtCombo.textProperty().bind(combo.getSelectionModel().selectedItemProperty());
         combo = new ComboBox<>();
         combo.getItems().setAll("Linear", "Logistic", "ReLU", "Softplus");
@@ -120,7 +126,7 @@ public class ANNView {
         topPane = new HBox(10);
         trainField = new TextField();
         downPane = new HBox(10);
-        downPane.getChildren().addAll(trainButton, txtTrain, trainField, error, numEpoch);
+        downPane.getChildren().addAll(trainButton, btnClassify, btnStop, txtTrain, trainField, error, numEpoch);
         downPane.setAlignment(Pos.CENTER);
         topPane.getChildren().addAll(fileBtn, configBtn, txtLR, inputLR, txtMo, inputMo, txtCombo, combo, exitBtn);
         topPane.setAlignment(Pos.CENTER);
@@ -143,10 +149,13 @@ public class ANNView {
         root.setPadding(new Insets(10, 15, 15, 15));
         root.setTop(topPane);
         root.setBottom(downPane);
+
         closeWindow = new Close(this);
         theCtrl = new FileCtrl(theModel, this);
         configCtrl = new ConfigCtrl(theModel, this);
         trainCtrl = new TrainCtrl(theModel, this);
+        stopCtrl = new StopCtrl(theModel, this);
+        classifyCtrl = new ClassifyCtrl(this, theModel);
 
     }
 
@@ -191,7 +200,9 @@ public class ANNView {
 
                 final Double weight = weights.get(weightsIndex)[j];
                 line.setStroke(ANNUtil.convertDoubleToRGBColor(weight));
-                line.setStrokeWidth((theModel.getWeights().get(weightsIndex)[j]) * 100);
+                //Tooltip tooltip = new Tooltip(weight.toString());
+                //Tooltip.install(line, tooltip);
+                //line.setStrokeWidth((theModel.getWeights().get(weightsIndex)[j]) * 10);
                 // add a line segment
                 lineArray.add(line);
 
@@ -204,17 +215,20 @@ public class ANNView {
                 final Line line = drawLineFromTo(circles.get(numOutputs + i), circles.get(numOutputs + numHidden + j));
                 // add a line segment
                 lineArray.add(line);
+                final Double weight = theModel.getWeights().get(weightsIndex)[j];
 
-                line.setStroke(ANNUtil.convertDoubleToRGBColor(theModel.getWeights().get(weightsIndex)[j]));
-                line.setStrokeWidth((theModel.getWeights().get(weightsIndex)[j]) * 100);
+                line.setStroke(ANNUtil.convertDoubleToRGBColor(weight));
+                //Tooltip tooltip = new Tooltip(weight.toString());
+                //Tooltip.install(line, tooltip);
+                //line.setStrokeWidth((theModel.getWeights().get(weightsIndex)[j]) * 10);
             }
             weightsIndex++;
         }
 
         // draw the lines
         for (Line l : lineArray) {
-            l.setStrokeWidth(10);
             ANNGraph.getChildren().add(l);
+            l.setStrokeWidth(10);
         }
         // draw the circles
         for (Circle c : circles) {
@@ -225,7 +239,7 @@ public class ANNView {
     public ArrayList<Circle> generateCircles(ArrayList ANNInfo) {
         ArrayList<Circle> circles = new ArrayList<>();
         for (int i = 0; i < (int) ANNInfo.get(2); i++) {
-            Circle c = new Circle(50, Paint.valueOf("BLUE"));
+            Circle c = new Circle(50, Paint.valueOf("CADETBLUE"));
             circles.add(c);
             c.setCenterX(1250);
             c.setCenterY(900 / (((int) ANNInfo.get(2)) + 1) * (i + 1));
@@ -327,6 +341,22 @@ public class ANNView {
 
     public TextField getInputLR() {
         return inputLR;
+    }
+
+    public Button getBtnStop() {
+        return btnStop;
+    }
+
+    public TrainCtrl getTrainCtrl() {
+        return trainCtrl;
+    }
+
+    public ClassifyCtrl getClassifyCtrl() {
+        return classifyCtrl;
+    }
+
+    public Button getBtnClassify() {
+        return btnClassify;
     }
 
 }

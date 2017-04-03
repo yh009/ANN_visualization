@@ -70,17 +70,19 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
             if (theView.getTrainField().getText().trim().isEmpty() == false) {
                 try {
                     epoch = Integer.parseInt(theView.getTrainField().getText());
+
                     if (theView.getInputLR().getText().trim().isEmpty() == false) {
                         theModel.changeLearningRate(Double.parseDouble(theView.getInputLR().getText()));
                     }
                     if (theView.getInputMo().getText().trim().isEmpty() == false) {
                         theModel.changeMomentum(Double.parseDouble(theView.getInputMo().getText()));
                     }
+
                     theModel.changeActivationFunction(theView.getCombo().getValue());
 
                     theTask = new RunEpochTask(theModel.getMyANN(), epoch, theModel.getData());
-                    theView.getNumEpoch().textProperty().bind(theTask.valueProperty().asString());
-                    theView.getError().textProperty().bind(theTask.messageProperty());
+                    theView.getError().textProperty().bind(Bindings.format("Error: %4.3f", theTask.valueProperty()));
+                    theView.getNumEpoch().textProperty().bind(theTask.messageProperty());
 
                 } catch (NumberFormatException numberFormatException) {
 
@@ -137,7 +139,8 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
                 }
                 totalError = ANN.computeOutputError(trainData, output);
                 updateValue(totalError);
-                updateMessage(String.format("%7d epochs", i));
+                //int epoch = Integer.parseInt(theView.getNumEpoch().getText()) + 1;
+                updateMessage(String.format("%7d epochs", i + 1));
                 updateProgress(i, epoch);
                 Platform.runLater(new Runnable() {
                     @Override
@@ -154,6 +157,10 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
             return totalError;
         }
 
+    }
+
+    public RunEpochTask getTheTask() {
+        return theTask;
     }
 
 }
