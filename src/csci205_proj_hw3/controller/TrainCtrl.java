@@ -31,6 +31,7 @@ import csci205_proj_hw3.model.ANNModel;
 import csci205_proj_hw3.view.ANNView;
 import java.util.ArrayList;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -52,14 +53,16 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
         this.theModel = theModel;
         this.theView = theView;
         theView.getTrainButton().setOnAction(this);
+
         /*
-         * for (int i = 0; i < theView.getInputLabels().size(); i++) {
-         * theView.getInputLabels().get(i).textProperty().bind(theModel.getData().get(i));
-         * } for (int j = 0; j < theView.getOutputLabels().size(); j++) {
+         * for (int i = 0; i < theModel.getANNInfo().get(0); i++) {
+         * theView.getInputLabels().get(i).textProperty().bind(new
+         * SimpleDoubleProperty(theModel.getInstance().get(i)).asString()); }
+         * for (int j = 0; j < theModel.getANNInfo().get(2); j++) {
          *
          * theView.getOutputLabels().get(j).textProperty().bind(new
-         * SimpleDoubleProperty(theModel.getMyANN().getOutputLayer().getOutputValueOf(j)).asString());
-        }
+         * SimpleDoubleProperty(theModel.getInstance().get(theModel.getANNInfo().get(0)
+         * + j)).asString()); }
          */
     }
 
@@ -67,6 +70,7 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
 
         int epoch;
+
         if (theModel.getData() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("CSV unspecified.");
@@ -78,18 +82,19 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
             if (theView.getTrainField().getText().trim().isEmpty() == false) {
                 try {
                     epoch = Integer.parseInt(theView.getTrainField().getText());
+
                     if (theView.getInputLR().getText().trim().isEmpty() == false) {
                         theModel.changeLearningRate(Double.parseDouble(theView.getInputLR().getText()));
                     }
                     if (theView.getInputMo().getText().trim().isEmpty() == false) {
                         theModel.changeMomentum(Double.parseDouble(theView.getInputMo().getText()));
                     }
-                    //System.out.println(theView.getCombo().getValue());
+
                     theModel.changeActivationFunction(theView.getCombo().getValue());
 
                     theTask = new RunEpochTask(theModel.getMyANN(), epoch, theModel.getData());
-                    theView.getNumEpoch().textProperty().bind(theTask.valueProperty().asString());
-                    theView.getError().textProperty().bind(theTask.messageProperty());
+                    theView.getError().textProperty().bind(Bindings.format("Error: %4.3f", theTask.valueProperty()));
+                    theView.getNumEpoch().textProperty().bind(theTask.messageProperty());
 
                 } catch (NumberFormatException numberFormatException) {
 
@@ -146,8 +151,16 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
                 }
                 totalError = ANN.computeOutputError(trainData, output);
                 updateValue(totalError);
-                updateMessage(String.format("%d epochs", i));
+                //int epoch = Integer.parseInt(theView.getNumEpoch().getText()) + 1;
+                updateMessage(String.format("%7d epochs", i + 1));
                 updateProgress(i, epoch);
+
+                //for (int j = 0; j < theModel.getANNInfo().get(0); j++) {
+                //    theView.getInputLabels().get(i).setText(Double.toString(theModel.getMyANN().getInputLayer().getOutputValueOf(i)));
+                //}
+                //for (int t = 0; t < theModel.getANNInfo().get(2); t++) {
+                //    theView.getOutputLabels().get(t).setText(Double.toString(theModel.getMyANN().getOutputLayer().getOutputValueOf(i)));
+                //}
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -163,6 +176,10 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
             return totalError;
         }
 
+    }
+
+    public RunEpochTask getTheTask() {
+        return theTask;
     }
 
 }

@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import neuralnet.ANN;
 import neuralnet.Edges;
 import neuralnet.data.LabeledInstances;
+import neuralnet.data.UnlabeledInstance;
 import neuralnet.strategy.ActivationStrategy;
 import neuralnet.strategy.LinearActivationStrategy;
 import neuralnet.strategy.LogisticActivationStrategy;
@@ -56,6 +57,7 @@ public class ANNModel {
     private ANN myANN;
     private LabeledInstances data = null;
     private int indexPointer = 0;
+    private UnlabeledInstance instance;
 
     public ANNModel() {
 
@@ -126,8 +128,19 @@ public class ANNModel {
      * indexPointer. TODO
      */
     public void trainOneInstance() {
+        myANN.classifyInstance(data.get(indexPointer));
 
         indexPointer++;
+    }
+
+    /**
+     * Classify next line of instance.
+     */
+    public void classifyInstance() {
+        myANN.classifyInstance(data.get(indexPointer));
+        instance = data.get(indexPointer);
+        indexPointer++;
+
     }
 
     /**
@@ -244,6 +257,10 @@ public class ANNModel {
 
     public ANN getMyANN() {
         return myANN;
+    }
+
+    public UnlabeledInstance getInstance() {
+        return instance;
     }
 
 }
