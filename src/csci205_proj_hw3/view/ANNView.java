@@ -425,4 +425,12 @@ public class ANNView {
         return trainOneLineBtn;
     }
 
+    public VBox getOutputs() {
+        return outputs;
+    }
+
+    public VBox getInputs() {
+        return inputs;
+    }
+
 }
