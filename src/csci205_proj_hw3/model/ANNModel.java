@@ -58,6 +58,7 @@ public class ANNModel {
     private LabeledInstances data = null;
     private int indexPointer = 0;
     private UnlabeledInstance instance;
+    private ArrayList<Double> instanceOutput;
 
     public ANNModel() {
 
@@ -137,7 +138,7 @@ public class ANNModel {
      * Classify next line of instance.
      */
     public void classifyInstance() {
-        myANN.classifyInstance(data.get(indexPointer));
+        this.instanceOutput = myANN.classifyInstance(data.get(indexPointer));
         instance = data.get(indexPointer);
         indexPointer++;
 
@@ -261,6 +262,10 @@ public class ANNModel {
 
     public UnlabeledInstance getInstance() {
         return instance;
+    }
+
+    public int getIndexPointer() {
+        return indexPointer;
     }
 
 }
