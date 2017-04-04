@@ -134,7 +134,7 @@ public class ANNView {
         //outputLabels = new ArrayList<>();
         //inputs.getChildren().addAll(inputLabels);
         //outputs.getChildren().addAll(outputLabels);
-
+        classifyOneLineBtn = new Button("Classify 1 Line");
         root = new BorderPane();
         topPane = new HBox(10);
         trainField = new TextField();

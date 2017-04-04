@@ -59,6 +59,7 @@ public class ClassifyOneLineCtrl implements EventHandler<ActionEvent> {
         } else {
             theModel.classifyInstance();
             System.out.println(theModel.getInstance().toString());
+            System.out.println(theModel.getInstanceOutput().toString());
         }
         // update inputs and outputs.
     }

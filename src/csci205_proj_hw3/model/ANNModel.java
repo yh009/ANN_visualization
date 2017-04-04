@@ -268,4 +268,8 @@ public class ANNModel {
         return indexPointer;
     }
 
+    public ArrayList<Double> getInstanceOutput() {
+        return instanceOutput;
+    }
+
 }
