@@ -218,6 +218,7 @@ public class ANN implements Serializable {
         for (int i = 0; i < trainInst.getTargets().size(); i++) {
             // For the time, I'm just going to compute the error as the absolute
             // value between the target and observed output
+            //System.out.println(annOutput.get(i));
             error += Math.abs(
                     trainInst.getTarget(i) - annOutput.get(i));
         }
