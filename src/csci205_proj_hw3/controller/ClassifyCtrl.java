@@ -64,7 +64,8 @@ public class ClassifyCtrl implements EventHandler<ActionEvent> {
                 ArrayList<ArrayList<Double>> output = new ArrayList<>();
                 output = theModel.getMyANN().classifyInstances(theModel.getData());
                 double totalError = ANN.computeOutputError(theModel.getData(), output);
-                theView.getError().textProperty().set(String.format("Error: %4.3f", totalError));
+                theView.getError().textProperty().unbind();
+                theView.getError().setText(String.format("Error: %4.3f", totalError));
 
             } catch (NumberFormatException numberFormatException) {
 
