@@ -31,7 +31,6 @@ import csci205_proj_hw3.model.ANNModel;
 import csci205_proj_hw3.view.ANNView;
 import java.util.ArrayList;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -53,14 +52,15 @@ public class TrainCtrl implements EventHandler<ActionEvent> {
         this.theModel = theModel;
         this.theView = theView;
         theView.getTrainButton().setOnAction(this);
-
-        for (int i = 0; i < theView.getInputLabels().size(); i++) {
-            theView.getInputLabels().get(i).textProperty().bind(theModel.getData().get(i));
+        /*
+         * for (int i = 0; i < theView.getInputLabels().size(); i++) {
+         * theView.getInputLabels().get(i).textProperty().bind(theModel.getData().get(i));
+         * } for (int j = 0; j < theView.getOutputLabels().size(); j++) {
+         *
+         * theView.getOutputLabels().get(j).textProperty().bind(new
+         * SimpleDoubleProperty(theModel.getMyANN().getOutputLayer().getOutputValueOf(j)).asString());
         }
-        for (int j = 0; j < theView.getOutputLabels().size(); j++) {
-
-            theView.getOutputLabels().get(j).textProperty().bind(new SimpleDoubleProperty(theModel.getMyANN().getOutputLayer().getOutputValueOf(j)).asString());
-        }
+         */
     }
 
     @Override
