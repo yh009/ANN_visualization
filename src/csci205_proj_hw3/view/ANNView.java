@@ -1,6 +1,7 @@
 package csci205_proj_hw3.view;
 
 import csci205_proj_hw3.controller.ClassifyCtrl;
+import csci205_proj_hw3.controller.ClassifyOneLineCtrl;
 import csci205_proj_hw3.controller.Close;
 import csci205_proj_hw3.controller.ConfigCtrl;
 import csci205_proj_hw3.controller.FileCtrl;
@@ -70,6 +71,7 @@ public class ANNView {
     private TextField trainField;
     private HBox topPane;
     private HBox downPane;
+    private HBox ddownPane;
     private TextField inputMo;
     private Label txtMo;
     private TextField inputLR;
@@ -93,6 +95,9 @@ public class ANNView {
     private StopCtrl stopCtrl;
     private Button btnStop;
     private Button btnClassify;
+    private Button classifyOneLineBtn;
+    private Button trainOneLineBtn;
+    private ClassifyOneLineCtrl classifyOneLineCtrl;
 
     public ANNView(ANNModel theModel) {
         this.theModel = theModel;
@@ -119,6 +124,7 @@ public class ANNView {
         combo = new ComboBox<>();
         combo.getItems().setAll("Linear", "Logistic", "ReLU", "Softplus");
         combo.getSelectionModel().select(0);
+        classifyOneLineBtn = new Button("classify 1 instance");
         VBox inputs = new VBox(50);
         VBox outputs = new VBox(50);
 
@@ -126,11 +132,12 @@ public class ANNView {
         topPane = new HBox(10);
         trainField = new TextField();
         downPane = new HBox(10);
-        downPane.getChildren().addAll(trainButton, btnClassify, btnStop, txtTrain, trainField, error, numEpoch);
+        downPane.getChildren().addAll(trainButton, btnClassify, btnStop,
+                txtTrain, trainField, error, numEpoch, classifyOneLineBtn);
         downPane.setAlignment(Pos.CENTER);
-        topPane.getChildren().addAll(fileBtn, configBtn, txtLR, inputLR, txtMo, inputMo, txtCombo, combo, exitBtn);
+        topPane.getChildren().addAll(fileBtn, configBtn, txtLR, inputLR, txtMo,
+                inputMo, txtCombo, combo, exitBtn);
         topPane.setAlignment(Pos.CENTER);
-
 
         /*
          * ANNGraph = new HBox(200); ANNGraph.setAlignment(Pos.CENTER);
@@ -149,13 +156,13 @@ public class ANNView {
         root.setPadding(new Insets(10, 15, 15, 15));
         root.setTop(topPane);
         root.setBottom(downPane);
-
         closeWindow = new Close(this);
         theCtrl = new FileCtrl(theModel, this);
         configCtrl = new ConfigCtrl(theModel, this);
         trainCtrl = new TrainCtrl(theModel, this);
         stopCtrl = new StopCtrl(theModel, this);
         classifyCtrl = new ClassifyCtrl(this, theModel);
+        classifyOneLineCtrl = new ClassifyOneLineCtrl(this, theModel);
 
     }
 
@@ -357,6 +364,14 @@ public class ANNView {
 
     public Button getBtnClassify() {
         return btnClassify;
+    }
+
+    public Button getClassifyOneLineBtn() {
+        return classifyOneLineBtn;
+    }
+
+    public Button getTrainOneLineBtn() {
+        return trainOneLineBtn;
     }
 
 }
