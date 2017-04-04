@@ -31,6 +31,7 @@ import csci205_proj_hw3.model.ANNModel;
 import csci205_proj_hw3.view.ANNView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -49,7 +50,16 @@ public class StopCtrl implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {
-        theView.getTrainCtrl().getTheTask().cancel();
+        if (theView.getTrainCtrl().getTheTask() != null) {
+            theView.getTrainCtrl().getTheTask().cancel();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Don't screw with this!");
+            alert.setHeaderText("Don't screw with this!");
+            alert.setContentText("Don't screw with this!");
+
+            alert.show();
+        }
 
     }
 
