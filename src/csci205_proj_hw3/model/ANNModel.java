@@ -264,4 +264,8 @@ public class ANNModel {
         return instance;
     }
 
+    public int getIndexPointer() {
+        return indexPointer;
+    }
+
 }
