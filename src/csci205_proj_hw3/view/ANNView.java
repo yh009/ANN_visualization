@@ -123,15 +123,15 @@ public class ANNView {
         //txtCombo.textProperty().bind(combo.getSelectionModel().selectedItemProperty());
         combo = new ComboBox<>();
         combo.getItems().setAll("Linear", "Logistic", "ReLU", "Softplus");
-        combo.getSelectionModel().selectFirst();
+        combo.getSelectionModel().select(1);
 
         inputs = new VBox(10);
         inputs.setAlignment(Pos.CENTER);
 
         outputs = new VBox(10);
         outputs.setAlignment(Pos.CENTER);
-        //inputLabels = new ArrayList<>();
-        //outputLabels = new ArrayList<>();
+        inputLabels = new ArrayList<>();
+        outputLabels = new ArrayList<>();
         //inputs.getChildren().addAll(inputLabels);
         //outputs.getChildren().addAll(outputLabels);
         classifyOneLineBtn = new Button("Classify 1 Line");
@@ -258,20 +258,6 @@ public class ANNView {
         }
     }
 
-    public void generateLabels(ArrayList ANNInfo) {
-        this.inputs.getChildren().clear();
-        this.outputs.getChildren().clear();
-        for (int i = 0; i < (int) ANNInfo.get(0); i++) {
-            this.inputs.getChildren().add(new Label("Empty"));
-            //this.inputLabels.add(new Label("Empty"));
-
-        }
-        for (int j = 0; j < (int) ANNInfo.get(2); j++) {
-            this.outputs.getChildren().add(new Label("Empty"));
-            //this.outputLabels.add(new Label("Empty"));
-        }
-    }
-
     public ArrayList<Circle> generateCircles(ArrayList ANNInfo) {
         ArrayList<Circle> circles = new ArrayList<>();
         for (int i = 0; i < (int) ANNInfo.get(2); i++) {
@@ -379,14 +365,6 @@ public class ANNView {
         return inputLR;
     }
 
-    public ArrayList<Label> getOutputLabels() {
-        return outputLabels;
-    }
-
-    public ArrayList<Label> getInputLabels() {
-        return inputLabels;
-    }
-
     public Button getBtnStop() {
         return btnStop;
     }
@@ -408,12 +386,42 @@ public class ANNView {
         return theModel;
     }
 
+    public ArrayList<Label> getOutputLabels() {
+        return outputLabels;
+    }
+
+    public ArrayList<Label> getInputLabels() {
+        return inputLabels;
+    }
+
+    public void generateLabels(ArrayList ANNInfo) {
+        this.inputLabels.clear();
+        this.outputLabels.clear();
+        this.inputs.getChildren().clear();
+        this.outputs.getChildren().clear();
+        for (int i = 0; i < (int) ANNInfo.get(0); i++) {
+            this.inputs.getChildren().add(new Label("empty"));
+            //this.inputLabels.add(new Label("Empty"));
+
+        }
+        for (int j = 0; j < (int) ANNInfo.get(2); j++) {
+            this.outputs.getChildren().add(new Label("Empty"));
+            //this.outputLabels.add(new Label("Empty"));
+        }
+    }
+
     public void updateLabels() {
+        String newText;
         for (int j = 0; j < this.getTheModel().getANNInfo().get(0); j++) {
-            this.getInputLabels().get(j).setText(Double.toString(this.getTheModel().getMyANN().getInputLayer().getOutputValueOf(j)));
+            newText = String.format("%.4f", theModel.getInstance().get(j));
+            //this.getInputLabels().get(j).setText(newText);
+            this.getInputs().getChildren().set(j, new Label(newText));
+
         }
         for (int t = 0; t < this.getTheModel().getANNInfo().get(2); t++) {
-            this.getOutputLabels().get(t).setText(Double.toString(this.getTheModel().getMyANN().getOutputLayer().getOutputValueOf(t)));
+            newText = String.format("%.4f", theModel.getInstanceOutput().get(t));
+            //this.getOutputLabels().get(t).setText(newText);
+            this.getOutputs().getChildren().set(t, new Label(newText));
         }
     }
 
