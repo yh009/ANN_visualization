@@ -58,7 +58,7 @@ import javafx.scene.text.Text;
  *
  * /**
  *
- * @author yh009
+ * @author Yuxuan Huang
  */
 public class ANNView {
 

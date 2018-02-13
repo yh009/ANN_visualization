@@ -40,7 +40,7 @@ import javafx.stage.Stage;
  *
  * /**
  *
- * @author mac
+ * @author Yuxuan Huang
  */
 public class Close implements EventHandler<ActionEvent> {
 

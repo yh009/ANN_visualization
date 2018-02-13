@@ -41,7 +41,7 @@ import javafx.stage.Stage;
  *
  * /**
  *
- * @author mac
+ * @author Yuxuan Huang
  */
 public class GenANN implements EventHandler<ActionEvent> {
 

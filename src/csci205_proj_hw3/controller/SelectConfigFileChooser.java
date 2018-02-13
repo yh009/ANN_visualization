@@ -43,7 +43,7 @@ import javafx.stage.Stage;
  *
  * /**
  *
- * @author yh009
+ * @author Yuxuan Huang
  */
 public class SelectConfigFileChooser implements EventHandler<ActionEvent> {
 

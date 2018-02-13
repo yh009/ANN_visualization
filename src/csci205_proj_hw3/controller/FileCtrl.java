@@ -33,7 +33,7 @@ package csci205_proj_hw3.controller;
  *
  * /**
  *
- * @author yh009
+ * @author Yuxuan Huang
  */
 import csci205_proj_hw3.model.ANNModel;
 import csci205_proj_hw3.view.ANNFileView;
