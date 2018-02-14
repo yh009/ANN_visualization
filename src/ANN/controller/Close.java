@@ -1,7 +1,7 @@
-package csci205_proj_hw3.controller;
+package ANN.controller;
 
-import csci205_proj_hw3.view.ANNFileView;
-import csci205_proj_hw3.view.ANNView;
+import ANN.view.ANNFileView;
+import ANN.view.ANNView;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

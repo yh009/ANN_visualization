@@ -1,8 +1,10 @@
-package csci205_proj_hw3.controller;
+package ANN.controller;
 
-import csci205_proj_hw3.model.ANNModel;
-import csci205_proj_hw3.view.ANNFileView;
+import ANN.view.ANNFileView;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.FileChooser;
@@ -19,9 +21,9 @@ import javafx.stage.Stage;
  *
  * Name: Zilin Ma, Yuxuan Huang
  *
- * Date: Apr 1, 2017
+ * Date: Mar 31, 2017
  *
- * Time: 12:27:36 AM
+ * Time: 1:45:18 PM
  *
  *
  *
@@ -29,7 +31,7 @@ import javafx.stage.Stage;
  *
  * Package: csci205_proj_hw3.controller
  *
- * File: selectTestFileChooser
+ * File: selectConfigFileChooser
  *
  * Description:
  *
@@ -43,22 +45,16 @@ import javafx.stage.Stage;
  *
  * @author Yuxuan Huang
  */
-public class SelectTestFileChooser implements EventHandler<ActionEvent> {
+public class SelectConfigFileChooser implements EventHandler<ActionEvent> {
 
     ANNFileView fileView;
-    ANNModel theModel;
 
-    public SelectTestFileChooser(ANNFileView fileView, ANNModel theModel) {
+    public SelectConfigFileChooser(ANNFileView fileView) {
         this.fileView = fileView;
-        this.theModel = theModel;
-        fileView.getSelectData().setOnAction(this);
+        this.fileView.getSelectConfig().setOnAction(this);
+
     }
 
-    /**
-     * Handler for choosing the CSV file.
-     *
-     * @param event
-     */
     @Override
     public void handle(ActionEvent event) {
         File workingDirectory = new File(System.getProperty("user.dir"));
@@ -67,9 +63,12 @@ public class SelectTestFileChooser implements EventHandler<ActionEvent> {
         fileChooser.setInitialDirectory(workingDirectory);
 
         File configFile = fileChooser.showOpenDialog(new Stage());
-        theModel.openTrainData(configFile.getAbsolutePath());
+        try {
+            fileView.fileSelected(configFile);
+        } catch (IOException ex) {
+            Logger.getLogger(SelectConfigFileChooser.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        //fileView.fileSelected(configFile);
     }
 
 }

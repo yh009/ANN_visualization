@@ -1,10 +1,8 @@
-package csci205_proj_hw3.controller;
+package ANN.controller;
 
-import csci205_proj_hw3.view.ANNFileView;
+import ANN.model.ANNModel;
+import ANN.view.ANNFileView;
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.FileChooser;
@@ -21,9 +19,9 @@ import javafx.stage.Stage;
  *
  * Name: Zilin Ma, Yuxuan Huang
  *
- * Date: Mar 31, 2017
+ * Date: Apr 1, 2017
  *
- * Time: 1:45:18 PM
+ * Time: 12:27:36 AM
  *
  *
  *
@@ -31,7 +29,7 @@ import javafx.stage.Stage;
  *
  * Package: csci205_proj_hw3.controller
  *
- * File: selectConfigFileChooser
+ * File: selectTestFileChooser
  *
  * Description:
  *
@@ -45,16 +43,22 @@ import javafx.stage.Stage;
  *
  * @author Yuxuan Huang
  */
-public class SelectConfigFileChooser implements EventHandler<ActionEvent> {
+public class SelectTestFileChooser implements EventHandler<ActionEvent> {
 
     ANNFileView fileView;
+    ANNModel theModel;
 
-    public SelectConfigFileChooser(ANNFileView fileView) {
+    public SelectTestFileChooser(ANNFileView fileView, ANNModel theModel) {
         this.fileView = fileView;
-        this.fileView.getSelectConfig().setOnAction(this);
-
+        this.theModel = theModel;
+        fileView.getSelectData().setOnAction(this);
     }
 
+    /**
+     * Handler for choosing the CSV file.
+     *
+     * @param event
+     */
     @Override
     public void handle(ActionEvent event) {
         File workingDirectory = new File(System.getProperty("user.dir"));
@@ -63,12 +67,9 @@ public class SelectConfigFileChooser implements EventHandler<ActionEvent> {
         fileChooser.setInitialDirectory(workingDirectory);
 
         File configFile = fileChooser.showOpenDialog(new Stage());
-        try {
-            fileView.fileSelected(configFile);
-        } catch (IOException ex) {
-            Logger.getLogger(SelectConfigFileChooser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        theModel.openTrainData(configFile.getAbsolutePath());
 
+        //fileView.fileSelected(configFile);
     }
 
 }

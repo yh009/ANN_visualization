@@ -1,10 +1,10 @@
-package csci205_proj_hw3.view;
+package ANN.view;
 
-import csci205_proj_hw3.controller.Close;
-import csci205_proj_hw3.controller.SaveConfigFileChooser;
-import csci205_proj_hw3.controller.SelectConfigFileChooser;
-import csci205_proj_hw3.controller.SelectTestFileChooser;
-import csci205_proj_hw3.model.ANNModel;
+import ANN.controller.Close;
+import ANN.controller.SaveConfigFileChooser;
+import ANN.controller.SelectConfigFileChooser;
+import ANN.controller.SelectTestFileChooser;
+import ANN.model.ANNModel;
 import java.io.File;
 import java.io.IOException;
 import javafx.geometry.Orientation;

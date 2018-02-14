@@ -1,7 +1,7 @@
-package csci205_proj_hw3.view;
+package ANN.view;
 
-import csci205_proj_hw3.controller.GenANN;
-import csci205_proj_hw3.model.ANNModel;
+import ANN.controller.GenANN;
+import ANN.model.ANNModel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -43,7 +43,7 @@ import javafx.scene.layout.VBox;
  *
  * /**
  *
- * @author mac
+ * @author Yuxuan Huang
  */
 public class ANNConfigView {
 

@@ -1,14 +1,14 @@
-package csci205_proj_hw3.view;
+package ANN.view;
 
-import csci205_proj_hw3.controller.ClassifyCtrl;
-import csci205_proj_hw3.controller.ClassifyOneLineCtrl;
-import csci205_proj_hw3.controller.Close;
-import csci205_proj_hw3.controller.ConfigCtrl;
-import csci205_proj_hw3.controller.FileCtrl;
-import csci205_proj_hw3.controller.StopCtrl;
-import csci205_proj_hw3.controller.TrainCtrl;
-import csci205_proj_hw3.model.ANNModel;
-import csci205_proj_hw3.utility.ANNUtil;
+import ANN.controller.ClassifyCtrl;
+import ANN.controller.ClassifyOneLineCtrl;
+import ANN.controller.Close;
+import ANN.controller.ConfigCtrl;
+import ANN.controller.FileCtrl;
+import ANN.controller.StopCtrl;
+import ANN.controller.TrainCtrl;
+import ANN.model.ANNModel;
+import ANN.utility.ANNUtil;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

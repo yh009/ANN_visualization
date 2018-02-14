@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package csci205_proj_hw3;
+package ANN;
 
 /**
  *
  * @author Zilin Ma
  */
-public class Csci205_proj_hw3 {
+public class Csci205_proj {
 
     /**
      * @param args the command line arguments

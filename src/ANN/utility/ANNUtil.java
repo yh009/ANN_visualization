@@ -31,7 +31,7 @@
  *
  * @author Zilin Ma
  */
-package csci205_proj_hw3.utility;
+package ANN.utility;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

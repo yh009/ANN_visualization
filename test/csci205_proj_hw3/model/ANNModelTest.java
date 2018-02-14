@@ -27,6 +27,7 @@
  **************************************** */
 package csci205_proj_hw3.model;
 
+import ANN.model.ANNModel;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +40,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Zilin Ma
+ * @author Yuxuan Huang
  */
 public class ANNModelTest {
 

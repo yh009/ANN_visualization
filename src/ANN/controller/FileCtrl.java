@@ -1,4 +1,4 @@
-package csci205_proj_hw3.controller;
+package ANN.controller;
 
 /*
  * *****************************************
@@ -35,9 +35,9 @@ package csci205_proj_hw3.controller;
  *
  * @author Yuxuan Huang
  */
-import csci205_proj_hw3.model.ANNModel;
-import csci205_proj_hw3.view.ANNFileView;
-import csci205_proj_hw3.view.ANNView;
+import ANN.model.ANNModel;
+import ANN.view.ANNFileView;
+import ANN.view.ANNView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;

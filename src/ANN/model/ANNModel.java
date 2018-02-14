@@ -1,6 +1,6 @@
-package csci205_proj_hw3.model;
+package ANN.model;
 
-import csci205_proj_hw3.utility.ANNUtil;
+import ANN.utility.ANNUtil;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

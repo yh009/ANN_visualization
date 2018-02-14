@@ -1,7 +1,7 @@
-package csci205_proj_hw3.controller;
+package ANN.controller;
 
-import csci205_proj_hw3.model.ANNModel;
-import csci205_proj_hw3.view.ANNFileView;
+import ANN.model.ANNModel;
+import ANN.view.ANNFileView;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;

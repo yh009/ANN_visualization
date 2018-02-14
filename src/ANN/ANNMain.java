@@ -1,7 +1,7 @@
-package csci205_proj_hw3;
+package ANN;
 
-import csci205_proj_hw3.model.ANNModel;
-import csci205_proj_hw3.view.ANNView;
+import ANN.model.ANNModel;
+import ANN.view.ANNView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
